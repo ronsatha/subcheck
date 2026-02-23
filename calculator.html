@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Subscriptions - SubCheck</title>
+    <meta name="description" content="Enter your subscriptions and see exactly how much you spend per year.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: { DEFAULT: '#2563EB', light: '#3B82F6', dark: '#1D4ED8' },
+                        savings: '#10B981',
+                        warning: '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-brand">
+                <span class="inline-block mr-1">&#9745;</span> SubCheck
+            </a>
+            <a href="index.html" class="text-sm text-gray-500 hover:text-gray-700 transition">&larr; Home</a>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+        <!-- Progress Indicator -->
+        <div class="flex items-center justify-center mb-10">
+            <div class="flex items-center">
+                <div class="w-9 h-9 bg-brand text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                <span class="text-sm font-medium ml-2 text-gray-700">Enter Subscriptions</span>
+            </div>
+            <div class="w-16 sm:w-24 h-0.5 bg-gray-200 mx-3"></div>
+            <div class="flex items-center">
+                <div class="w-9 h-9 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                <span class="text-sm ml-2 text-gray-400">See Results</span>
+            </div>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-bold text-center mb-2">Enter Your Subscriptions</h1>
+        <p class="text-center text-gray-500 mb-8 text-sm">Add everything you pay for on a recurring basis.</p>
+
+        <!-- Subscription Form Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-8">
+
+            <!-- Column Headers (desktop) -->
+            <div class="hidden sm:grid grid-cols-12 gap-3 mb-3 text-xs font-medium text-gray-400 uppercase tracking-wider px-1">
+                <div class="col-span-4">Service Name</div>
+                <div class="col-span-2">Cost ($)</div>
+                <div class="col-span-2">Billing</div>
+                <div class="col-span-3">Category</div>
+                <div class="col-span-1"></div>
+            </div>
+
+            <!-- Rows Container -->
+            <div id="subscriptionContainer">
+                <!-- Rows will be injected by JS -->
+            </div>
+
+            <!-- Add Row Button -->
+            <button id="addRow"
+                    class="mt-4 text-brand hover:text-brand-dark font-medium text-sm transition flex items-center gap-1">
+                <span class="text-lg leading-none">+</span> Add Another Subscription
+            </button>
+
+            <!-- Running Total -->
+            <div id="runningTotal" class="mt-6 pt-5 border-t border-gray-100 text-center text-gray-500 text-sm">
+                Running total: <span id="runningMonthly" class="font-semibold text-gray-700">$0.00</span>/month
+                &middot;
+                <span id="runningYearly" class="font-semibold text-gray-700">$0.00</span>/year
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                <button id="calculateBtn"
+                        class="flex-1 bg-brand text-white px-6 py-3.5 rounded-xl font-semibold hover:bg-brand-dark shadow-sm hover:shadow transition-all text-base">
+                    Calculate Total &rarr;
+                </button>
+                <button id="clearBtn"
+                        class="px-6 py-3.5 border border-gray-200 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition text-sm font-medium">
+                    Clear All
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick-Add Presets -->
+        <div class="mt-8 text-center">
+            <p class="text-xs text-gray-400 mb-3">Quick add popular services:</p>
+            <div id="presets" class="flex flex-wrap justify-center gap-2">
+                <!-- Preset buttons injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-xs text-gray-400">
+        <p>Your data stays in your browser. We never see it.</p>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubCheck - Free Subscription Calculator</title>
+    <meta name="description" content="Calculate your yearly subscription spending in 2 minutes. Free, private, no signup required.">
+    <meta name="keywords" content="subscription calculator, subscription spending, cancel subscriptions, save money">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: { DEFAULT: '#2563EB', light: '#3B82F6', dark: '#1D4ED8' },
+                        savings: '#10B981',
+                        warning: '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-brand">
+                <span class="inline-block mr-1">&#9745;</span> SubCheck
+            </a>
+            <a href="calculator.html" class="text-sm font-medium text-brand hover:text-brand-dark transition">
+                Open Calculator &rarr;
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 sm:py-24 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight mb-6">
+                How Much Are You <span class="text-brand">Really</span> Spending on Subscriptions?
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10">
+                Free calculator. No signup. No bank linking. Get your answer in 2&nbsp;minutes.
+            </p>
+            <a href="calculator.html"
+               class="inline-block bg-brand text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-lg shadow-blue-200 hover:bg-brand-dark hover:shadow-xl transition-all duration-200">
+                Calculate Now &rarr;
+            </a>
+
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-14 text-sm text-gray-500">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-green-100 text-savings flex items-center justify-center text-lg font-bold mb-2">&#10003;</div>
+                    <div class="font-medium text-gray-700">100% Private</div>
+                    <div class="text-xs mt-0.5">Your data never leaves your browser</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-brand flex items-center justify-center text-lg font-bold mb-2">&#10003;</div>
+                    <div class="font-medium text-gray-700">No Signup Required</div>
+                    <div class="text-xs mt-0.5">Start immediately, zero friction</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold mb-2">&#10003;</div>
+                    <div class="font-medium text-gray-700">Instant Results</div>
+                    <div class="text-xs mt-0.5">See totals and charts live</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-16 sm:py-20 border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10">Did You Know?</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-brand">$427</div>
+                    <div class="text-gray-500 mt-2">Average monthly subscription spend</div>
+                </div>
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-brand">42%</div>
+                    <div class="text-gray-500 mt-2">Pay for subscriptions they don't use</div>
+                </div>
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-brand">50%</div>
+                    <div class="text-gray-500 mt-2">Want to cancel at least one subscription</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 sm:py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-12">How It Works</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-blue-100 text-brand rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                    <h3 class="font-semibold mb-2">Enter Subscriptions</h3>
+                    <p class="text-sm text-gray-500">Add each service you pay for &mdash; name, cost, and billing cycle.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-green-100 text-savings rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="font-semibold mb-2">See Your Total</h3>
+                    <p class="text-sm text-gray-500">Get monthly and yearly totals with a visual breakdown by category.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="font-semibold mb-2">Find Savings</h3>
+                    <p class="text-sm text-gray-500">Get personalized tips on where you can cut back and save.</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="calculator.html"
+                   class="inline-block bg-brand text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-dark transition">
+                    Get Started &mdash; It's Free
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-400">
+            <p>&copy; 2026 SubCheck. Free &amp; open source.</p>
+            <p class="mt-1">Your data stays in your browser. We never see it.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
