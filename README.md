@@ -1,2 +1,2 @@
 # subcheck
-Privacy-first subscription spending calculator
+Privacy-first subscription spending calculator 
