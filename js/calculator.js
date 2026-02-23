@@ -168,11 +168,22 @@ PRESETS.forEach(preset => {
     presetsDiv.appendChild(btn);
 });
 
-// ── Init: Load saved data or start with one empty row ───────────
+// ── Init: Load saved data or ask user ───────────────────────────
 (function init() {
     const saved = Storage.load();
     if (saved.length > 0) {
-        saved.forEach(sub => createRow(sub));
+        // Show welcome back prompt
+        const loadPrevious = confirm(
+            'Welcome back! You have ' + saved.length + ' subscription' +
+            (saved.length > 1 ? 's' : '') + ' saved from last time.\n\n' +
+            'Click OK to load them, or Cancel to start fresh.'
+        );
+        if (loadPrevious) {
+            saved.forEach(sub => createRow(sub));
+        } else {
+            Storage.clear();
+            createRow();
+        }
     } else {
         createRow();
     }
