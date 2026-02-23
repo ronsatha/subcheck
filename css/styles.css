@@ -1,0 +1,56 @@
+/* SubCheck - Custom Styles */
+/* Most styling handled by Tailwind; this file is for custom overrides and animations */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+input:focus,
+select:focus,
+button:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+}
+
+/* Subscription row animation */
+.subscription-row {
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Delete button hover */
+.delete-row {
+    transition: transform 0.15s ease;
+}
+.delete-row:hover {
+    transform: scale(1.2);
+}
+
+/* Number input - hide spin arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Chart container */
+.chart-container {
+    position: relative;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+/* Print styles */
+@media print {
+    nav, footer, .no-print { display: none !important; }
+    body { background: white; }
+}
