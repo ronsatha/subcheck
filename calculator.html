@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB629TESJJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BB629TESJJ');
+    </script>
     <title>Calculate Subscriptions - SubCheck</title>
     <meta name="description" content="Enter your subscriptions and see exactly how much you spend per year.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +63,18 @@
         <h1 class="text-2xl sm:text-3xl font-bold text-center mb-2">Enter Your Subscriptions</h1>
         <p class="text-center text-gray-500 mb-8 text-sm">Add everything you pay for on a recurring basis.</p>
 
+        <!-- Quick-Add Presets (moved above form for visibility) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-4">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-lg">&#9889;</span>
+                <h2 class="text-sm font-semibold text-gray-700">Quick add popular services</h2>
+                <span class="text-xs text-gray-400">(click to add)</span>
+            </div>
+            <div id="presets" class="flex flex-wrap gap-2">
+                <!-- Preset buttons injected by JS -->
+            </div>
+        </div>
+
         <!-- Subscription Form Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-8">
 
@@ -98,13 +118,6 @@
             </div>
         </div>
 
-        <!-- Quick-Add Presets -->
-        <div class="mt-8 text-center">
-            <p class="text-xs text-gray-400 mb-3">Quick add popular services:</p>
-            <div id="presets" class="flex flex-wrap justify-center gap-2">
-                <!-- Preset buttons injected by JS -->
-            </div>
-        </div>
     </div>
 
     <!-- Footer -->
