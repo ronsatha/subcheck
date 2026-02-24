@@ -158,12 +158,21 @@ calculateBtn.addEventListener('click', () => {
 });
 
 // ── Preset Buttons ──────────────────────────────────────────────
+const PRESET_ICONS = {
+    'Netflix': '🎬', 'Spotify': '🎵', 'YouTube Premium': '▶️', 'Disney+': '✨',
+    'Hulu': '📺', 'Amazon Prime': '📦', 'Apple Music': '🎧', 'ChatGPT Plus': '🤖',
+    'Adobe CC': '🎨', 'iCloud+': '☁️', 'Xbox Game Pass': '🎮', 'Gym Membership': '💪',
+};
+
 PRESETS.forEach(preset => {
     const btn = document.createElement('button');
-    btn.className = 'px-3 py-1.5 bg-gray-100 hover:bg-blue-50 hover:text-brand text-gray-600 text-xs rounded-full transition font-medium';
-    btn.textContent = preset.name;
+    btn.className = 'flex items-center gap-1.5 px-3.5 py-2 bg-gray-50 border border-gray-200 hover:border-brand hover:bg-blue-50 text-gray-700 hover:text-brand text-sm rounded-lg transition font-medium shadow-sm hover:shadow';
+    const icon = PRESET_ICONS[preset.name] || '➕';
+    btn.innerHTML = `<span>${icon}</span> ${preset.name} <span class="text-xs text-gray-400 font-normal">$${preset.cost.toFixed(2)}</span>`;
     btn.addEventListener('click', () => {
         createRow({ name: preset.name, cost: preset.cost, frequency: 'monthly', category: preset.category });
+        btn.classList.add('opacity-50', 'pointer-events-none');
+        btn.innerHTML = `<span>✓</span> ${preset.name} <span class="text-xs text-gray-400 font-normal">added</span>`;
     });
     presetsDiv.appendChild(btn);
 });
