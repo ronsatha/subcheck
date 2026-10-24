@@ -136,10 +136,10 @@
     <!-- Footer -->
     <footer class="py-8 text-center text-xs text-gray-400">
         <p>&copy; 2026 SubCheck. Your data stays in your browser.</p>
+        <p class="mt-1"><a href="privacy.html" class="hover:text-gray-600">Privacy</a></p>
     </footer>
 
     <script src="js/storage.js"></script>
-    <script src="js/affiliates.js"></script>
     <script>
     (function() {
         // ── Load data ───────────────────────────────────────────
@@ -284,19 +284,6 @@
                     <p class="text-sm text-gray-600">You have ${monthlyBilled.length} services billed monthly over $10. Annual plans typically save 15-20%. That could be $${(monthlyTotal * 12 * 0.15).toFixed(0)}+/year in savings.</p>
                 </div>`;
         }
-
-        // Affiliate recommendations
-        recsHTML += `
-            <div class="bg-gray-50 border border-gray-100 p-5 rounded-xl mb-4">
-                <p class="font-semibold text-sm mb-1">Track everything automatically</p>
-                <p class="text-sm text-gray-600 mb-3">Tired of manual tracking? Quicken Simplifi connects to your bank and monitors all subscriptions for you.</p>
-                <a href="#" onclick="trackAffiliate('quicken'); return false;" class="text-brand hover:text-brand-dark text-sm font-semibold">Try Quicken Simplifi &rarr;</a>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 p-5 rounded-xl mb-4">
-                <p class="font-semibold text-sm mb-1">Let AI negotiate your bills</p>
-                <p class="text-sm text-gray-600 mb-3">Trim can automatically negotiate lower rates on your subscriptions and cancel unwanted services.</p>
-                <a href="#" onclick="trackAffiliate('trim'); return false;" class="text-savings hover:text-green-700 text-sm font-semibold">Try Trim Free &rarr;</a>
-            </div>`;
 
         recsEl.innerHTML = recsHTML;
 
