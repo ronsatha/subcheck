@@ -1,0 +1,15 @@
+Copyright (c) 2026 Ron Satha. All rights reserved.
+
+The source code in this repository is published publicly so that anyone can
+inspect how SubCheck (subcheckapp.com) works and verify the privacy claims
+made on the site, in particular that a visitor's subscription list is stored
+only in their own browser and is never sent to a SubCheck server.
+
+Publication for inspection is not a grant of reuse rights. No permission is
+given to copy, redistribute, rebrand, or create derivative works from this
+code, in whole or in part, without the prior written consent of the
+copyright holder. Viewing and reading the code for verification, security
+review, or personal learning is welcome.
+
+The SubCheck name, logo, and site content (articles, guides, and copy) are
+likewise the property of the copyright holder and are not licensed for reuse.
