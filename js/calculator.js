@@ -117,12 +117,29 @@ function createRow(data = {}) {
             <button class="delete-row w-8 h-8 rounded-full text-gray-300 hover:text-warning hover:bg-red-50 flex items-center justify-center text-lg transition"
                     aria-label="Delete row">&times;</button>
         </div>
-        <div class="sm:col-span-12 flex items-center gap-2">
-            <label class="text-xs text-gray-400 whitespace-nowrap">Next renewal <span class="text-gray-300">(optional)</span></label>
-            <input type="date"
-                   value="${data.renewal || ''}"
-                   class="renewal border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
-                   aria-label="Next renewal date (optional)" />
+        <div class="sm:col-span-12 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span class="flex items-center gap-2">
+                <label class="text-xs text-gray-400 whitespace-nowrap">Next renewal <span class="text-gray-300">(optional)</span></label>
+                <input type="date"
+                       value="${data.renewal || ''}"
+                       class="renewal border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
+                       aria-label="Next renewal date (optional)" />
+            </span>
+            <span class="flex items-center gap-2">
+                <label class="text-xs text-gray-400 whitespace-nowrap">Whose bill?</label>
+                <select class="tag border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs bg-white dark:bg-gray-800 focus:border-brand focus:ring-1 focus:ring-brand" aria-label="Whose bill is this">
+                    <option value="personal" ${(!data.tag || data.tag === 'personal') ? 'selected' : ''}>Personal</option>
+                    <option value="business" ${data.tag === 'business' ? 'selected' : ''}>Business</option>
+                    <option value="shared" ${data.tag === 'shared' ? 'selected' : ''}>Shared</option>
+                </select>
+            </span>
+            <span class="flex items-center gap-2">
+                <label class="text-xs text-gray-400 whitespace-nowrap">My share $</label>
+                <input type="number" step="0.01" min="0" placeholder="0.00"
+                       value="${data.share != null ? data.share : ''}"
+                       class="share w-24 border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
+                       aria-label="My share of this plan (only for shared plans)" />
+            </span>
         </div>
     `;
 
@@ -135,6 +152,17 @@ function createRow(data = {}) {
 
     // If the service name is edited away from a preset, free that preset button again
     row.querySelector('.service-name').addEventListener('input', syncPresetButtons);
+
+    // The share field only applies to shared plans
+    const tagSelect = row.querySelector('.tag');
+    const shareInput = row.querySelector('.share');
+    const syncShareState = () => {
+        const isShared = tagSelect.value === 'shared';
+        shareInput.disabled = !isShared;
+        shareInput.classList.toggle('opacity-40', !isShared);
+    };
+    tagSelect.addEventListener('change', syncShareState);
+    syncShareState();
 
     // Wire up live total updates
     row.querySelector('.cost').addEventListener('input', updateRunningTotal);
@@ -156,12 +184,13 @@ function updateRunningTotal() {
         else monthly += cost;
     });
 
-    document.getElementById('runningMonthly').textContent = `$${monthly.toFixed(2)}`;
-    document.getElementById('runningYearly').textContent  = `$${(monthly * 12).toFixed(2)}`;
+    const fmtTotal = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('runningMonthly').textContent = `$${fmtTotal(monthly)}`;
+    document.getElementById('runningYearly').textContent  = `$${fmtTotal(monthly * 12)}`;
     const mm = document.getElementById('mobileMonthly');
     const my = document.getElementById('mobileYearly');
-    if (mm) mm.textContent = `$${monthly.toFixed(2)}/mo`;
-    if (my) my.textContent = `$${(monthly * 12).toFixed(2)}/year`;
+    if (mm) mm.textContent = `$${fmtTotal(monthly)}/mo`;
+    if (my) my.textContent = `$${fmtTotal(monthly * 12)}/year`;
 }
 
 // ── Gather subscription data from rows ──────────────────────────
@@ -174,9 +203,15 @@ function gatherSubscriptions() {
         const category  = row.querySelector('.category').value;
         const renewalEl = row.querySelector('.renewal');
         const renewal   = renewalEl ? renewalEl.value : '';
+        const tagEl     = row.querySelector('.tag');
+        const tag       = tagEl ? tagEl.value : 'personal';
+        const shareEl   = row.querySelector('.share');
+        const share     = shareEl ? parseFloat(shareEl.value) : NaN;
         if (name && cost > 0) {
             const sub = { name, cost, frequency, category };
             if (renewal) sub.renewal = renewal;
+            if (tag === 'business' || tag === 'shared') sub.tag = tag;
+            if (tag === 'shared' && share > 0) sub.share = Math.min(share, cost);
             subs.push(sub);
         }
     });
@@ -303,13 +338,98 @@ if (sampleBtn) {
     });
 }
 
-// ── CSV import (accepts the format of SubCheck's own CSV export) ──
+// ── CSV / spreadsheet import ────────────────────────────────────
+// A SubCheck export imports directly. Any other CSV or TSV (a spreadsheet or a
+// statement export) opens the column matcher below. Files are parsed locally
+// in the browser; nothing is uploaded.
 function parseCsvLine(line) {
     const fields = [];
-    const re = /"([^"]*)"|([^,]+)/g;
-    let m;
-    while ((m = re.exec(line)) !== null) fields.push((m[1] !== undefined ? m[1] : m[2]).trim());
+    let cur = '', inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (inQuotes) {
+            if (ch === '"') {
+                if (line[i + 1] === '"') { cur += '"'; i++; }
+                else inQuotes = false;
+            } else cur += ch;
+        } else if (ch === '"') inQuotes = true;
+        else if (ch === ',') { fields.push(cur.trim()); cur = ''; }
+        else cur += ch;
+    }
+    fields.push(cur.trim());
     return fields;
+}
+function parseCsvText(text) {
+    const firstLine = text.split(/\r?\n/)[0] || '';
+    const isTsv = firstLine.includes('\t');
+    return text.split(/\r?\n/).filter(l => l.trim()).map(l =>
+        isTsv ? l.split('\t').map(s => s.trim().replace(/^"|"$/g, '')) : parseCsvLine(l));
+}
+const categoryByLabel = {};
+CATEGORIES.forEach(c => { categoryByLabel[c.label.toLowerCase()] = c.value; });
+function normalizeFrequency(v) {
+    const s = (v || '').toLowerCase();
+    if (/year|annual/.test(s)) return 'yearly';
+    if (/quarter/.test(s)) return 'quarterly';
+    return 'monthly';
+}
+function normalizeCategory(v) {
+    const s = (v || '').toLowerCase();
+    return categoryByLabel[s] || (CATEGORIES.some(c => c.value === s) ? s : 'other');
+}
+function parseAmount(v) {
+    const n = parseFloat(String(v == null ? '' : v).replace(/[^0-9.\-]/g, ''));
+    return isNaN(n) ? 0 : Math.abs(n);
+}
+function importRows(dataRows, map) {
+    let added = 0;
+    dataRows.forEach(f => {
+        const name = (f[map.name] || '').trim();
+        const cost = parseAmount(f[map.cost]);
+        if (!name || !(cost > 0) || /^total/i.test(name)) return;
+        const rowData = {
+            name, cost,
+            frequency: map.freq >= 0 ? normalizeFrequency(f[map.freq]) : 'monthly',
+            category: map.cat >= 0 ? normalizeCategory(f[map.cat]) : 'other'
+        };
+        if (map.renewal >= 0 && /^\d{4}-\d{2}-\d{2}$/.test((f[map.renewal] || '').trim())) rowData.renewal = f[map.renewal].trim();
+        if (map.tag >= 0) {
+            const tg = (f[map.tag] || '').toLowerCase();
+            if (tg === 'personal' || tg === 'business' || tg === 'shared') rowData.tag = tg;
+        }
+        if (map.share >= 0 && rowData.tag === 'shared') {
+            const sh = parseAmount(f[map.share]);
+            if (sh > 0) rowData.share = Math.min(sh, cost);
+        }
+        createRow(rowData);
+        added++;
+    });
+    return added;
+}
+function guessColumn(headers, patterns) {
+    for (const pat of patterns) {
+        const i = headers.findIndex(h => pat.test(h));
+        if (i > -1) return i;
+    }
+    return -1;
+}
+let pendingCsvRows = null;
+function fillMapSelect(id, headers, chosen, allowNone) {
+    const sel = document.getElementById(id);
+    sel.innerHTML = '';
+    if (allowNone) {
+        const opt = document.createElement('option');
+        opt.value = '-1'; opt.textContent = 'Not in this file';
+        sel.appendChild(opt);
+    }
+    headers.forEach((h, i) => {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = h || ('Column ' + (i + 1));
+        if (i === chosen) opt.selected = true;
+        sel.appendChild(opt);
+    });
+    if (allowNone && chosen === -1) sel.value = '-1';
 }
 const csvImport = document.getElementById('csvImport');
 if (csvImport) {
@@ -318,34 +438,65 @@ if (csvImport) {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = () => {
-            const labelToValue = {};
-            CATEGORIES.forEach(c => { labelToValue[c.label.toLowerCase()] = c.value; });
-            let added = 0;
-            String(reader.result).split(/\r?\n/).forEach((line, idx) => {
-                if (!line.trim() || idx === 0) return; // skip header
-                const f = parseCsvLine(line);
-                const name = f[0];
-                const cost = parseFloat(f[1]);
-                if (!name || !(cost > 0) || /total/i.test(name)) return;
-                const freq = ['monthly', 'quarterly', 'yearly'].includes((f[2] || '').toLowerCase()) ? f[2].toLowerCase() : 'monthly';
-                const cat = labelToValue[(f[3] || '').toLowerCase()] || (CATEGORIES.some(c => c.value === (f[3] || '').toLowerCase()) ? f[3].toLowerCase() : 'other');
-                const rowData = { name, cost, frequency: freq, category: cat };
-                if (/^\d{4}-\d{2}-\d{2}$/.test((f[5] || '').trim())) rowData.renewal = f[5].trim();
-                createRow(rowData);
-                added++;
-            });
-            if (added > 0) {
-                markCalculatorStarted();
-                syncPresetButtons();
-                trackEvent('csv_imported', { subscription_count: added });
+            const rows = parseCsvText(String(reader.result));
+            if (rows.length < 2) { alert('That file has no data rows to import.'); csvImport.value = ''; return; }
+            const headers = rows[0].map(h => (h || '').toLowerCase());
+            const map = {
+                name: guessColumn(headers, [/service/, /name/, /description/, /merchant/, /payee/, /item/]),
+                cost: guessColumn(headers, [/^cost/, /amount/, /price/, /charge/, /debit/]),
+                freq: guessColumn(headers, [/frequ/, /billing/, /period/, /cycle/]),
+                cat: guessColumn(headers, [/categor/, /type/, /group/]),
+                renewal: guessColumn(headers, [/renew/, /next/]),
+                tag: guessColumn(headers, [/^tag/, /whose/, /owner/]),
+                share: guessColumn(headers, [/share/])
+            };
+            const looksLikeList = map.freq > -1 || map.cat > -1 || /service/.test(headers[map.name] || '');
+            if (map.name > -1 && map.cost > -1 && looksLikeList) {
+                finishCsvImport(importRows(rows.slice(1), map));
             } else {
-                alert('No subscriptions found in that CSV. Expected columns: Service Name, Cost, Billing Frequency, Category.');
+                pendingCsvRows = rows;
+                fillMapSelect('mapName', rows[0], map.name > -1 ? map.name : 0, false);
+                fillMapSelect('mapCost', rows[0], map.cost > -1 ? map.cost : 1, false);
+                fillMapSelect('mapFreq', rows[0], map.freq, true);
+                fillMapSelect('mapCat', rows[0], map.cat, true);
+                document.getElementById('csvMapPreview').textContent =
+                    (rows.length - 1) + ' data rows found. Amounts are read as positive charges, and rows with no amount are skipped.';
+                document.getElementById('csvMapPanel').classList.remove('hidden');
             }
             csvImport.value = '';
         };
         reader.readAsText(file);
     });
 }
+function finishCsvImport(added) {
+    if (added > 0) {
+        markCalculatorStarted();
+        syncPresetButtons();
+        trackEvent('csv_imported', { subscription_count: added });
+    } else {
+        alert('No subscriptions could be read from that file. Check the column choices and try again.');
+    }
+}
+const csvMapImportBtn = document.getElementById('csvMapImportBtn');
+if (csvMapImportBtn) csvMapImportBtn.addEventListener('click', () => {
+    if (!pendingCsvRows) return;
+    const map = {
+        name: parseInt(document.getElementById('mapName').value, 10),
+        cost: parseInt(document.getElementById('mapCost').value, 10),
+        freq: parseInt(document.getElementById('mapFreq').value, 10),
+        cat: parseInt(document.getElementById('mapCat').value, 10),
+        renewal: -1, tag: -1, share: -1
+    };
+    const added = importRows(pendingCsvRows.slice(1), map);
+    pendingCsvRows = null;
+    document.getElementById('csvMapPanel').classList.add('hidden');
+    finishCsvImport(added);
+});
+const csvMapCancelBtn = document.getElementById('csvMapCancelBtn');
+if (csvMapCancelBtn) csvMapCancelBtn.addEventListener('click', () => {
+    pendingCsvRows = null;
+    document.getElementById('csvMapPanel').classList.add('hidden');
+});
 
 const mobileCalcBtn = document.getElementById('mobileCalculateBtn');
 if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', () => calculateBtn.click());
