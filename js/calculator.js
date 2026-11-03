@@ -85,7 +85,7 @@ function createRow(data = {}) {
         <div class="sm:col-span-4">
             <input type="text"
                    placeholder="e.g. Netflix"
-                   value="${data.name || ''}"
+                   value=""
                    class="service-name w-full border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
                    aria-label="Service name" />
         </div>
@@ -95,7 +95,7 @@ function createRow(data = {}) {
                    placeholder="0.00"
                    step="0.01"
                    min="0"
-                   value="${data.cost != null ? data.cost : ''}"
+                   value=""
                    class="cost w-full border border-gray-200 dark:border-gray-600 rounded-lg pl-7 pr-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
                    aria-label="Monthly cost" />
         </div>
@@ -105,6 +105,9 @@ function createRow(data = {}) {
                 <option value="monthly"   ${data.frequency === 'monthly'   ? 'selected' : ''}>Monthly</option>
                 <option value="quarterly"  ${data.frequency === 'quarterly' ? 'selected' : ''}>Quarterly</option>
                 <option value="yearly"     ${data.frequency === 'yearly'    ? 'selected' : ''}>Yearly</option>
+                <option value="weekly"     ${data.frequency === 'weekly'    ? 'selected' : ''}>Weekly</option>
+                <option value="semiannual" ${data.frequency === 'semiannual' ? 'selected' : ''}>Every 6 months</option>
+                <option value="biennial"   ${data.frequency === 'biennial'  ? 'selected' : ''}>Every 2 years</option>
             </select>
         </div>
         <div class="sm:col-span-3">
@@ -121,7 +124,7 @@ function createRow(data = {}) {
             <span class="flex items-center gap-2">
                 <label class="text-xs text-gray-400 whitespace-nowrap">Next renewal <span class="text-gray-300">(optional)</span></label>
                 <input type="date"
-                       value="${data.renewal || ''}"
+                       value=""
                        class="renewal border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
                        aria-label="Next renewal date (optional)" />
             </span>
@@ -136,12 +139,19 @@ function createRow(data = {}) {
             <span class="flex items-center gap-2">
                 <label class="text-xs text-gray-400 whitespace-nowrap">My share $</label>
                 <input type="number" step="0.01" min="0" placeholder="0.00"
-                       value="${data.share != null ? data.share : ''}"
+                       value=""
                        class="share w-24 border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
                        aria-label="My share of this plan (only for shared plans)" />
             </span>
         </div>
     `;
+
+    // Values are assigned as DOM properties, never interpolated into HTML,
+    // so a service name containing markup stays inert text (stored-XSS guard).
+    row.querySelector('.service-name').value = data.name || '';
+    row.querySelector('.cost').value = data.cost != null ? data.cost : '';
+    row.querySelector('.renewal').value = data.renewal || '';
+    row.querySelector('.share').value = data.share != null ? data.share : '';
 
     // Wire up delete
     row.querySelector('.delete-row').addEventListener('click', () => {
@@ -177,11 +187,8 @@ function createRow(data = {}) {
 function updateRunningTotal() {
     let monthly = 0;
     container.querySelectorAll('.subscription-row').forEach(row => {
-        const cost = parseFloat(row.querySelector('.cost').value) || 0;
-        const freq = row.querySelector('.frequency').value;
-        if (freq === 'quarterly')  monthly += cost / 3;
-        else if (freq === 'yearly') monthly += cost / 12;
-        else monthly += cost;
+        const cost = Math.max(0, parseFloat(row.querySelector('.cost').value) || 0);
+        monthly += monthlyEquivalent(cost, row.querySelector('.frequency').value);
     });
 
     const fmtTotal = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -191,6 +198,15 @@ function updateRunningTotal() {
     const my = document.getElementById('mobileYearly');
     if (mm) mm.textContent = `$${fmtTotal(monthly)}/mo`;
     if (my) my.textContent = `$${fmtTotal(monthly * 12)}/year`;
+}
+
+function monthlyEquivalent(cost, freq) {
+    if (freq === 'weekly')     return cost * 52 / 12;
+    if (freq === 'quarterly')  return cost / 3;
+    if (freq === 'semiannual') return cost / 6;
+    if (freq === 'yearly')     return cost / 12;
+    if (freq === 'biennial')   return cost / 24;
+    return cost;
 }
 
 // ── Gather subscription data from rows ──────────────────────────
@@ -237,12 +253,49 @@ clearBtn.addEventListener('click', () => {
 });
 
 // ── Event: Calculate ────────────────────────────────────────────
+function findProblemRows() {
+    const problems = [];
+    container.querySelectorAll('.subscription-row').forEach(row => {
+        const name = row.querySelector('.service-name').value.trim();
+        const cost = parseFloat(row.querySelector('.cost').value);
+        const hasCost = !isNaN(cost) && cost !== 0;
+        if ((name && !(cost > 0)) || (!name && hasCost)) problems.push(row);
+    });
+    return problems;
+}
+
 calculateBtn.addEventListener('click', () => {
+    const warn = document.getElementById('calcWarning');
+    const problems = findProblemRows();
+    container.querySelectorAll('.subscription-row').forEach(r => r.classList.remove('ring-2', 'ring-red-400', 'rounded-xl'));
+    if (problems.length) {
+        problems.forEach(r => r.classList.add('ring-2', 'ring-red-400', 'rounded-xl'));
+        if (warn) {
+            warn.textContent = problems.length + (problems.length === 1 ? ' row has ' : ' rows have ') +
+                'a name or a cost but not both, so it would be left out of your total. The highlighted ' +
+                (problems.length === 1 ? 'row needs' : 'rows need') + ' a name and a cost above zero: fix or delete ' +
+                (problems.length === 1 ? 'it' : 'them') + ', then calculate again.';
+            warn.classList.remove('hidden');
+        }
+        problems[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
     const subs = gatherSubscriptions();
     if (subs.length === 0) {
         alert('Please add at least one subscription with a name and cost.');
         return;
     }
+    const big = subs.filter(s => monthlyEquivalent(s.cost, s.frequency) > 2000);
+    if (big.length && !calculateBtn.dataset.bigOk) {
+        if (warn) {
+            warn.textContent = 'Heads up: ' + big[0].name + ' works out to more than $2,000 a month. If that is really right, tap Calculate again to continue.';
+            warn.classList.remove('hidden');
+        }
+        calculateBtn.dataset.bigOk = '1';
+        return;
+    }
+    delete calculateBtn.dataset.bigOk;
+    if (warn) warn.classList.add('hidden');
     trackEvent('calculator_completed', { subscription_count: subs.length });
     Storage.save(subs);
     window.location.href = 'results.html';
@@ -369,6 +422,9 @@ const categoryByLabel = {};
 CATEGORIES.forEach(c => { categoryByLabel[c.label.toLowerCase()] = c.value; });
 function normalizeFrequency(v) {
     const s = (v || '').toLowerCase();
+    if (/biennial|every 2|2[\s-]*years?|two years?/.test(s)) return 'biennial';
+    if (/semi|6[\s-]*months?|twice a year|biannual/.test(s)) return 'semiannual';
+    if (/week/.test(s)) return 'weekly';
     if (/year|annual/.test(s)) return 'yearly';
     if (/quarter/.test(s)) return 'quarterly';
     return 'monthly';

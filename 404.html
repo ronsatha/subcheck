@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){try{var t=localStorage.getItem('subcheck_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      var nav=document.querySelector('nav'); if(!nav) return;
+      var wrap=nav.querySelector('.justify-between')||nav.querySelector('div'); if(!wrap) return;
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Toggle dark mode'); b.title='Toggle dark mode';
+      b.className='w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand transition text-base';
+      function paint(){b.textContent=document.documentElement.classList.contains('dark')?'\u2600':'\u263E';}
+      paint();
+      b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('subcheck_theme',d?'dark':'light');}catch(e){} paint();});
+      wrap.appendChild(b);
+    });})();
+    </script>
+    <title>Page not found | SubCheck</title>
+    <meta name="description" content="How SubCheck handles your data: your subscription list stays in your browser, and the only thing we can collect is an email you choose to give for the checklist and yearly reminder.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SubCheck">
+    <meta property="og:title" content="Privacy - SubCheck">
+    <meta property="og:description" content="How SubCheck handles your data: your subscription list stays in your browser, and the only thing we can collect is an email you choose to give for the checklist and yearly reminder.">
+    <meta property="og:url" content="https://subcheckapp.com/privacy">
+    <meta property="og:image" content="https://subcheckapp.com/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy - SubCheck">
+    <meta name="twitter:description" content="How SubCheck handles your data: your subscription list stays in your browser, and the only thing we can collect is an email you choose to give for the checklist and yearly reminder.">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: { DEFAULT: '#2563EB', light: '#3B82F6', dark: '#1D4ED8' },
+                        savings: '#10B981',
+                        warning: '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css?v=20261103">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100">
+
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+            <a href="index.html" class="flex items-center gap-1.5 shrink-0 whitespace-nowrap text-lg sm:text-xl font-bold text-brand"><span class="text-xl leading-none">&#9745;</span> SubCheck</a>
+            <div class="order-3 w-full md:order-none md:w-auto flex items-center justify-around md:justify-end gap-4 md:gap-5 border-t border-gray-100 dark:border-gray-700 pt-2 md:border-0 md:pt-0">
+                <a href="index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Home</a>
+                <a href="calculator.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Calculator</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Blog</a>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-2xl mx-auto px-4 py-20 text-center">
+        <p class="text-6xl font-extrabold text-brand mb-4">404</p>
+        <h1 class="text-2xl font-bold mb-3">This page does not exist</h1>
+        <p class="text-gray-500 dark:text-gray-400 mb-8">The page you asked for is not here. Your subscription list, if you have one saved in this browser, is untouched.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/calculator" class="bg-brand text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-dark transition">Open the calculator</a>
+            <a href="/" class="px-6 py-3 border border-gray-200 dark:border-gray-600 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition">Go to the homepage</a>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-100 dark:border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600 dark:text-gray-300">
+            <p>&copy; 2026 SubCheck</p>
+            <p class="mt-1"><a href="index.html" class="hover:text-brand">Home</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
