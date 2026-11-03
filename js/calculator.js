@@ -14,17 +14,17 @@ const CATEGORIES = [
 ];
 
 const PRESETS = [
-    { name: 'Netflix',        cost: 15.49,  category: 'streaming' },
-    { name: 'Spotify',        cost: 11.99,  category: 'music' },
-    { name: 'YouTube Premium',cost: 13.99,  category: 'streaming' },
-    { name: 'Disney+',        cost: 13.99,  category: 'streaming' },
-    { name: 'Hulu',           cost: 17.99,  category: 'streaming' },
+    { name: 'Netflix',        cost: 19.99,  category: 'streaming' },
+    { name: 'Spotify',        cost: 12.99,  category: 'music' },
+    { name: 'YouTube Premium',cost: 15.99,  category: 'streaming' },
+    { name: 'Disney+',        cost: 21.49,  category: 'streaming' },
+    { name: 'Hulu',           cost: 21.49,  category: 'streaming' },
     { name: 'Amazon Prime',   cost: 14.99,  category: 'streaming' },
-    { name: 'Apple Music',    cost: 10.99,  category: 'music' },
+    { name: 'Apple Music',    cost: 11.99,  category: 'music' },
     { name: 'ChatGPT Plus',   cost: 20.00,  category: 'software' },
-    { name: 'Adobe CC',       cost: 59.99,  category: 'software' },
+    { name: 'Adobe CC',       cost: 69.99,  category: 'software' },
     { name: 'iCloud+',        cost: 2.99,   category: 'cloud' },
-    { name: 'Xbox Game Pass', cost: 16.99,  category: 'gaming' },
+    { name: 'Xbox Game Pass Ultimate', cost: 22.99, category: 'gaming' },
     { name: 'Gym Membership', cost: 49.99,  category: 'fitness' },
     { name: 'Newspaper',      cost: 14.99,  category: 'news' },
     { name: 'Magazine',       cost: 9.99,   category: 'news' },
@@ -285,9 +285,9 @@ if (presetSearch) {
 
 // ── Sample data ─────────────────────────────────────────────────
 const SAMPLE_DATA = [
-    { name: 'Netflix', cost: 15.49, frequency: 'monthly', category: 'streaming' },
-    { name: 'Spotify', cost: 11.99, frequency: 'monthly', category: 'music' },
-    { name: 'Disney+', cost: 13.99, frequency: 'monthly', category: 'streaming' },
+    { name: 'Netflix', cost: 19.99, frequency: 'monthly', category: 'streaming' },
+    { name: 'Spotify', cost: 12.99, frequency: 'monthly', category: 'music' },
+    { name: 'Disney+', cost: 21.49, frequency: 'monthly', category: 'streaming' },
     { name: 'ChatGPT Plus', cost: 20.00, frequency: 'monthly', category: 'software' },
     { name: 'iCloud+', cost: 2.99, frequency: 'monthly', category: 'cloud' },
     { name: 'Gym Membership', cost: 49.99, frequency: 'monthly', category: 'fitness' },
