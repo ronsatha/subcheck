@@ -34,6 +34,19 @@ const PRESETS = [
     { name: 'Charity Donation', cost: 10.00, category: 'other' },
 ];
 
+// Sample data with renewal dates relative to today, so the demo always
+// shows upcoming charges: Netflix in 9 days, Gym Membership in 21 days.
+function sampleData() {
+    const fmt = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const inDays = n => { const d = new Date(); d.setDate(d.getDate() + n); return fmt(d); };
+    return SAMPLE_DATA.map(s => {
+        const copy = { ...s };
+        if (s.name === 'Netflix') copy.renewal = inDays(9);
+        if (s.name === 'Gym Membership') copy.renewal = inDays(21);
+        return copy;
+    });
+}
+
 // ── DOM references ──────────────────────────────────────────────
 const container    = document.getElementById('subscriptionContainer');
 const addRowBtn    = document.getElementById('addRow');
@@ -104,6 +117,13 @@ function createRow(data = {}) {
             <button class="delete-row w-8 h-8 rounded-full text-gray-300 hover:text-warning hover:bg-red-50 flex items-center justify-center text-lg transition"
                     aria-label="Delete row">&times;</button>
         </div>
+        <div class="sm:col-span-12 flex items-center gap-2">
+            <label class="text-xs text-gray-400 whitespace-nowrap">Next renewal <span class="text-gray-300">(optional)</span></label>
+            <input type="date"
+                   value="${data.renewal || ''}"
+                   class="renewal border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
+                   aria-label="Next renewal date (optional)" />
+        </div>
     `;
 
     // Wire up delete
@@ -152,8 +172,12 @@ function gatherSubscriptions() {
         const cost      = parseFloat(row.querySelector('.cost').value);
         const frequency = row.querySelector('.frequency').value;
         const category  = row.querySelector('.category').value;
+        const renewalEl = row.querySelector('.renewal');
+        const renewal   = renewalEl ? renewalEl.value : '';
         if (name && cost > 0) {
-            subs.push({ name, cost, frequency, category });
+            const sub = { name, cost, frequency, category };
+            if (renewal) sub.renewal = renewal;
+            subs.push(sub);
         }
     });
     return subs;
@@ -273,7 +297,7 @@ if (sampleBtn) {
     sampleBtn.addEventListener('click', () => {
         markCalculatorStarted();
         container.innerHTML = '';
-        SAMPLE_DATA.forEach(sub => createRow(sub));
+        sampleData().forEach(sub => createRow(sub));
         syncPresetButtons();
         trackEvent('sample_data_loaded', { subscription_count: SAMPLE_DATA.length });
     });
@@ -305,7 +329,9 @@ if (csvImport) {
                 if (!name || !(cost > 0) || /total/i.test(name)) return;
                 const freq = ['monthly', 'quarterly', 'yearly'].includes((f[2] || '').toLowerCase()) ? f[2].toLowerCase() : 'monthly';
                 const cat = labelToValue[(f[3] || '').toLowerCase()] || (CATEGORIES.some(c => c.value === (f[3] || '').toLowerCase()) ? f[3].toLowerCase() : 'other');
-                createRow({ name, cost, frequency: freq, category: cat });
+                const rowData = { name, cost, frequency: freq, category: cat };
+                if (/^\d{4}-\d{2}-\d{2}$/.test((f[5] || '').trim())) rowData.renewal = f[5].trim();
+                createRow(rowData);
                 added++;
             });
             if (added > 0) {
@@ -328,7 +354,7 @@ if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', () => calculateBtn.cl
 (function init() {
     // Homepage sample link: calculator.html?sample=1 loads the sample audit directly
     if (new URLSearchParams(window.location.search).get('sample') === '1') {
-        SAMPLE_DATA.forEach(sub => createRow(sub));
+        sampleData().forEach(sub => createRow(sub));
         syncPresetButtons();
         trackEvent('sample_data_loaded', { subscription_count: SAMPLE_DATA.length });
         return;

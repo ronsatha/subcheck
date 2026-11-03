@@ -134,6 +134,16 @@
                 <p id="whatIfResult" class="text-base font-semibold text-savings mt-5 hidden"></p>
             </div>
 
+            <!-- Upcoming renewals -->
+            <div id="upcomingCard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 mb-8">
+                <h2 class="text-xl font-bold mb-2">Coming up</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Your next charges, from the renewal dates you added. No surprises.</p>
+                <div id="upcomingList" class="space-y-3"></div>
+                <p id="upcomingTotal" class="text-sm font-semibold mt-5"></p>
+                <button id="downloadIcsBtn" class="mt-5 px-5 py-2.5 text-sm font-medium border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 hover:text-brand transition">Add to my calendar (.ics)</button>
+                <p class="text-xs text-gray-400 mt-3">The calendar file repeats each charge on its billing cycle and reminds you 3 days before. It is generated on your device; nothing is uploaded.</p>
+            </div>
+
             <!-- Recommendations -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 mb-8">
                 <h2 class="text-xl font-bold mb-6">Ways to Save</h2>
@@ -186,7 +196,7 @@
         <p class="mt-1"><a href="privacy.html" class="hover:text-gray-600">Privacy</a></p>
     </footer>
 
-    <script src="js/storage.js?v=20261103c"></script>
+    <script src="js/storage.js?v=20261103d"></script>
     <script>
     (function() {
         // ── Load data ───────────────────────────────────────────
@@ -406,22 +416,82 @@
 
         recsEl.innerHTML = recsHTML;
 
+        // ── Upcoming renewals + calendar export ──────────────────
+        function escText(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        function parseLocalDate(s) {
+            const parts = s.split('-').map(Number);
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+        function nextOccurrence(sub) {
+            if (!sub.renewal) return null;
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            let d = parseLocalDate(sub.renewal);
+            let guard = 0;
+            while (d < today && guard++ < 600) {
+                if (sub.frequency === 'yearly') d.setFullYear(d.getFullYear() + 1);
+                else if (sub.frequency === 'quarterly') d.setMonth(d.getMonth() + 3);
+                else d.setMonth(d.getMonth() + 1);
+            }
+            return d;
+        }
+        const datedSubs = subscriptions.filter(s => s.renewal).map(s => ({ sub: s, next: nextOccurrence(s) })).filter(x => x.next).sort((a, b) => a.next - b.next);
+        if (datedSubs.length > 0) {
+            const fmtDate = d => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            document.getElementById('upcomingList').innerHTML = datedSubs.map(({ sub, next }) => `
+                <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-600 pb-3">
+                    <span class="font-medium">${escText(sub.name)}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">${fmtDate(next)} · $${sub.cost.toFixed(2)}</span>
+                </div>`).join('');
+            const in30 = datedSubs.filter(({ next }) => (next - new Date()) / 86400000 <= 30).reduce((sum, { sub }) => sum + sub.cost, 0);
+            document.getElementById('upcomingTotal').textContent = in30 > 0 ? `$${in30.toFixed(2)} due in the next 30 days across ${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}.` : `${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}, nothing due in the next 30 days.`;
+            document.getElementById('upcomingCard').classList.remove('hidden');
+            document.getElementById('downloadIcsBtn').addEventListener('click', () => {
+                if (typeof gtag === 'function') gtag('event', 'calendar_downloaded', { subscription_count: datedSubs.length });
+                const stamp = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+                const rrule = f => f === 'yearly' ? 'FREQ=YEARLY' : f === 'quarterly' ? 'FREQ=MONTHLY;INTERVAL=3' : 'FREQ=MONTHLY';
+                const events = datedSubs.map(({ sub, next }, i) => [
+                    'BEGIN:VEVENT',
+                    `UID:subcheck-${i}-${stamp(next)}@subcheckapp.com`,
+                    `DTSTART;VALUE=DATE:${stamp(next)}`,
+                    `RRULE:${rrule(sub.frequency)}`,
+                    `SUMMARY:${sub.name} renews ($${sub.cost.toFixed(2)})`,
+                    'BEGIN:VALARM',
+                    'ACTION:DISPLAY',
+                    'TRIGGER:-P3D',
+                    `DESCRIPTION:${sub.name} renews in 3 days`,
+                    'END:VALARM',
+                    'END:VEVENT'
+                ].join('\r\n')).join('\r\n');
+                const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//SubCheck//Renewals//EN', events, 'END:VCALENDAR'].join('\r\n');
+                const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'SubCheck_Renewals.ics';
+                link.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
         // ── CSV Download ─────────────────────────────────────────
         document.getElementById('downloadCsvBtn').addEventListener('click', () => {
             if (typeof gtag === 'function') gtag('event', 'csv_downloaded', { subscription_count: subscriptions.length });
-            const headers = ['Service Name', 'Cost', 'Billing Frequency', 'Category', 'Monthly Cost'];
+            const headers = ['Service Name', 'Cost', 'Billing Frequency', 'Category', 'Monthly Cost', 'Next Renewal'];
             const rows = sorted.map(sub => [
                 sub.name,
                 sub.cost.toFixed(2),
                 sub.frequency,
                 CATEGORY_LABELS[sub.category] || sub.category,
-                sub.monthly.toFixed(2)
+                sub.monthly.toFixed(2),
+                sub.renewal || ''
             ]);
 
             // Add summary rows
             rows.push([]);
-            rows.push(['MONTHLY TOTAL', '', '', '', monthlyTotal.toFixed(2)]);
-            rows.push(['YEARLY TOTAL', '', '', '', yearlyTotal.toFixed(2)]);
+            rows.push(['MONTHLY TOTAL', '', '', '', monthlyTotal.toFixed(2), '']);
+            rows.push(['YEARLY TOTAL', '', '', '', yearlyTotal.toFixed(2), '']);
 
             const csvContent = [headers, ...rows]
                 .map(row => row.map(cell => `"${cell}"`).join(','))
