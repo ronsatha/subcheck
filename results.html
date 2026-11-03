@@ -191,6 +191,46 @@
                 </div>
             </div>
 
+<div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 mb-8 print:hidden">
+    <h2 class="text-xl font-bold mb-2">Get the one-page audit checklist</h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">A printable one-page checklist for finding the subscriptions a first pass misses, yours to open the moment you sign up, plus one reminder email a year before renewal season. No newsletter, unsubscribe in one click.</p>
+    <form id="subscribeForm" class="flex flex-col sm:flex-row gap-3" novalidate>
+        <label class="sr-only" for="subscribeEmail">Email address</label>
+        <input id="subscribeEmail" type="email" required placeholder="you@example.com"
+               class="flex-1 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-3 text-sm focus:border-brand focus:ring-1 focus:ring-brand" />
+        <input type="text" id="subscribeWebsite" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" class="bg-brand text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-brand-dark transition">Get the checklist</button>
+    </form>
+    <p id="subscribeMsg" class="text-sm mt-3 hidden"></p>
+    <p class="text-xs text-gray-400 mt-3">Your email is stored by SubCheck only for the yearly reminder. Your subscription list is never sent anywhere; it stays in your browser.</p>
+</div>
+<script>
+document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('subscribeMsg');
+    const email = document.getElementById('subscribeEmail').value;
+    msg.classList.remove('hidden');
+    msg.textContent = 'Sending...';
+    try {
+        const res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, website: document.getElementById('subscribeWebsite').value })
+        });
+        const data = await res.json();
+        if (res.ok && data.ok) {
+            msg.innerHTML = 'You are on the list. <a href="/audit-checklist.html" class="text-brand font-semibold hover:underline" target="_blank" rel="noopener">Open your one-page audit checklist</a>';
+            if (typeof gtag === 'function') gtag('event', 'email_signup_submitted', {});
+            document.getElementById('subscribeForm').reset();
+        } else {
+            msg.textContent = data.error || 'Something went wrong. Please try again.';
+        }
+    } catch {
+        msg.textContent = 'Something went wrong. Please try again.';
+    }
+});
+</script>
+
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-3">
                 <a href="calculator.html"
