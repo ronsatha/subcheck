@@ -307,6 +307,13 @@ if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', () => calculateBtn.cl
 
 // ── Init: Load saved data or ask user ───────────────────────────
 (function init() {
+    // Homepage sample link: calculator.html?sample=1 loads the sample audit directly
+    if (new URLSearchParams(window.location.search).get('sample') === '1') {
+        SAMPLE_DATA.forEach(sub => createRow(sub));
+        syncPresetButtons();
+        trackEvent('sample_data_loaded', { subscription_count: SAMPLE_DATA.length });
+        return;
+    }
     const saved = Storage.load();
     if (saved.length > 0) {
         // Show welcome back prompt

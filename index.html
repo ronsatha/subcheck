@@ -80,113 +80,139 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="py-10 sm:py-24 px-4">
-        <div class="max-w-3xl mx-auto text-center">
-            <p class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Free tool. No signup. No ads.</p>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight mb-6">
-            Calculate Your Total Subscription Spending
+    <!-- Hero -->
+    <section class="bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-800 dark:to-transparent">
+        <div class="max-w-3xl mx-auto text-center px-4 pt-12 pb-10 sm:pt-20 sm:pb-14">
+            <span class="inline-block text-xs font-semibold tracking-wide uppercase bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-full shadow-sm">Free tool &middot; No signup &middot; No ads</span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mt-6 mb-5">
+                Every subscription you pay for.<br class="hidden sm:block"> One honest number.
             </h1>
-            <p class="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium mb-8">
-            Add up your subscriptions. See what they cost per year.
+            <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-8">
+                SubCheck adds up your recurring charges and shows what they really cost per month and per year, and where the money goes. About two minutes, and nothing you type leaves your browser.
             </p>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto mb-10">
-                A simple calculator that totals your recurring charges and shows where the money goes. Nothing to install, nothing to connect. Takes about 2 minutes.
-            </p>
-            <a href="calculator.html"
-               class="inline-block bg-gray-900 text-white px-7 py-3.5 rounded-lg text-base font-medium hover:bg-gray-800 transition">
-                Open the calculator
-            </a>
-            <p class="text-xs text-gray-400 mt-4">Your data stays in your browser. We never see it.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="calculator.html" class="w-full sm:w-auto inline-block bg-brand text-white px-8 py-4 rounded-xl text-base font-semibold hover:bg-brand-dark shadow-lg shadow-blue-600/20 transition">Calculate my total</a>
+                <a href="calculator.html?sample=1" class="w-full sm:w-auto inline-block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 px-8 py-4 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-200 hover:border-brand hover:text-brand transition">See a sample audit</a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-6">&#10003; No account &nbsp;&middot;&nbsp; &#10003; No bank login &nbsp;&middot;&nbsp; &#10003; Works on your phone</p>
         </div>
     </section>
 
-    <!-- Product Preview (example) -->
+    <!-- Product window (example) -->
     <section class="px-4 pb-16 sm:pb-20">
-        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/60 border border-gray-100 dark:border-gray-700 p-6 sm:p-8 text-left">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="font-bold text-lg">Your audit at a glance</h2>
-                <span class="text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-brand px-3 py-1 rounded-full">Example</span>
+        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/60 dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden text-left">
+            <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+                <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-green-400 inline-block"></span>
+                <span class="ml-3 text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md px-3 py-1">subcheckapp.com</span>
+                <span class="ml-auto text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-brand px-3 py-1 rounded-full">Example</span>
             </div>
-            <div class="grid grid-cols-3 gap-4 text-center mb-8">
-                <div><div class="text-2xl sm:text-3xl font-extrabold">$219</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per month</div></div>
-                <div><div class="text-2xl sm:text-3xl font-extrabold text-brand">$2,628</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per year</div></div>
-                <div><div class="text-2xl sm:text-3xl font-extrabold">14</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">subscriptions</div></div>
-            </div>
-            <div class="space-y-3 text-sm">
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Streaming</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-brand h-2.5 rounded-full" style="width:38%"></div></div><span class="w-16 text-right font-medium">$84/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Software</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-emerald-500 h-2.5 rounded-full" style="width:21%"></div></div><span class="w-16 text-right font-medium">$46/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Fitness</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-amber-500 h-2.5 rounded-full" style="width:16%"></div></div><span class="w-16 text-right font-medium">$35/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Other</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-violet-500 h-2.5 rounded-full" style="width:14%"></div></div><span class="w-16 text-right font-medium">$30/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Music</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-pink-500 h-2.5 rounded-full" style="width:11%"></div></div><span class="w-16 text-right font-medium">$24/mo</span></div>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-6">Example numbers, built from the $219 a month average cited below. Your audit uses only the numbers you type in.</p>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="bg-white dark:bg-gray-800 py-16 sm:py-20 border-t border-gray-100 dark:border-gray-700">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-center mb-3">Why it matters</h2>
-            <p class="text-sm text-gray-400 text-center mb-10">Recent research on subscription spending in the U.S.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-                <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">$1,080</div>
-                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Average yearly subscription spend</div>
-                    <a href="https://finance.yahoo.com/news/subscriptions-control-cnet-survey-shows-110000941.html" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">CNET / Yahoo Finance &rarr;</a>
+            <div class="p-6 sm:p-8">
+                <div class="grid grid-cols-3 gap-4 text-center mb-8">
+                    <div><div class="text-2xl sm:text-3xl font-extrabold">$219</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per month</div></div>
+                    <div><div class="text-2xl sm:text-3xl font-extrabold text-brand">$2,628</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per year</div></div>
+                    <div><div class="text-2xl sm:text-3xl font-extrabold">14</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">subscriptions</div></div>
                 </div>
-                <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">42%</div>
-                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Forgot about a subscription they still pay for</div>
-                    <a href="https://www.crresearch.com/blog/subscription-service-statistics-and-costs/" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">C+R Research &rarr;</a>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Streaming</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-brand h-2.5 rounded-full" style="width:38%"></div></div><span class="w-16 text-right font-medium">$84/mo</span></div>
+                    <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Software</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-emerald-500 h-2.5 rounded-full" style="width:21%"></div></div><span class="w-16 text-right font-medium">$46/mo</span></div>
+                    <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Fitness</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-amber-500 h-2.5 rounded-full" style="width:16%"></div></div><span class="w-16 text-right font-medium">$35/mo</span></div>
+                    <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Other</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-violet-500 h-2.5 rounded-full" style="width:14%"></div></div><span class="w-16 text-right font-medium">$30/mo</span></div>
+                    <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Music</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-pink-500 h-2.5 rounded-full" style="width:11%"></div></div><span class="w-16 text-right font-medium">$24/mo</span></div>
                 </div>
-                <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">$219</div>
-                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">What people actually spend per month (they guess $111)</div>
-                    <a href="https://www.cnbc.com/2022/09/06/consumers-underestimate-monthly-subscription-costs-by-at-least-100.html" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">CNBC &rarr;</a>
-                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-6">Example numbers, built from the $219 a month average cited below. Your audit uses only the numbers you type in, and you can test the real thing with sample data in one click.</p>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="py-16 sm:py-20 px-4">
+    <!-- Trust strip -->
+    <section class="px-4 pb-16 sm:pb-20">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                <div class="text-2xl mb-3">&#128274;</div>
+                <h3 class="font-bold mb-1.5">Your list never leaves your browser</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Your subscriptions are stored only on your own device. There is no SubCheck server collecting them, and we never see your list.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                <div class="text-2xl mb-3">&#128683;</div>
+                <h3 class="font-bold mb-1.5">No bank login, ever</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Other tools want your bank credentials to find your subscriptions. SubCheck asks you to type them in instead. Slower by a minute, safer by a mile.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                <div class="text-2xl mb-3">&#127873;</div>
+                <h3 class="font-bold mb-1.5">Free, with no catch</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">No ads, no premium tier, no trial that quietly converts. SubCheck is free and <a href="https://github.com/ronsatha/subcheck" target="_blank" rel="noopener" class="text-brand hover:underline">open source</a>, built because this problem should not need another subscription to solve.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="bg-white dark:bg-gray-800 border-y border-gray-100 dark:border-gray-700 py-16 sm:py-20 px-4">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-xl sm:text-2xl font-bold text-center mb-12">How it works</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-3">How it works</h2>
+            <p class="text-center text-gray-500 dark:text-gray-400 mb-12">Three steps, about two minutes.</p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">1</div>
+                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-brand rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">1</div>
                     <h3 class="font-semibold mb-2">List your subscriptions</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Type in each service, its cost, and how often you're billed. Quick-add buttons for common ones like Netflix and Spotify.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Type each service, its cost, and how often you are billed. Quick-add buttons cover the common ones, or import a CSV list.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">2</div>
-                    <h3 class="font-semibold mb-2">See the total</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Get your monthly and yearly cost with a chart showing where the money goes by category.</p>
+                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-brand rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">2</div>
+                    <h3 class="font-semibold mb-2">See the honest total</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Monthly and yearly totals, a breakdown by category, and a plain-language summary of your biggest costs.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">3</div>
-                    <h3 class="font-semibold mb-2">Download or save</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Export your results as a CSV or PDF. Everything runs in your browser. We never see your data.</p>
+                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-brand rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">3</div>
+                    <h3 class="font-semibold mb-2">Decide what stays</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Tick services in the what-if simulator to see what cancelling would save, then save or share your summary.</p>
                 </div>
-            </div>
-            <div class="text-center mt-12">
-                <a href="calculator.html"
-                   class="inline-block text-brand font-medium hover:underline transition">
-                    Try it out &rarr;
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- Open Source Note -->
-    <section class="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-12 px-4">
-        <div class="max-w-2xl mx-auto text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">
-                SubCheck is free and <a href="https://github.com/ronsatha/subcheck" target="_blank" rel="noopener" class="text-brand hover:underline">open source</a>.
-                No accounts. No ads. No tracking beyond basic analytics.
-                Built because subscription spending is a problem worth solving without adding another subscription to solve it.
-            </p>
+    <!-- Stats band -->
+    <section class="bg-slate-900 dark:bg-slate-800 text-white py-16 sm:py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-3">Why it matters</h2>
+            <p class="text-sm text-slate-400 text-center mb-12">Recent research on subscription spending in the U.S.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold">$219</div>
+                    <div class="text-slate-300 mt-2 text-sm">What people actually spend per month. They guess $111.</div>
+                    <a href="https://www.cnbc.com/2022/09/06/consumers-underestimate-monthly-subscription-costs-by-at-least-100.html" target="_blank" rel="noopener" class="text-xs text-blue-300 hover:underline mt-2 inline-block">CNBC &rarr;</a>
+                </div>
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold">42%</div>
+                    <div class="text-slate-300 mt-2 text-sm">Have forgotten about a subscription they still pay for</div>
+                    <a href="https://www.crresearch.com/blog/subscription-service-statistics-and-costs/" target="_blank" rel="noopener" class="text-xs text-blue-300 hover:underline mt-2 inline-block">C+R Research &rarr;</a>
+                </div>
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold">$1,080</div>
+                    <div class="text-slate-300 mt-2 text-sm">Average yearly subscription spend</div>
+                    <a href="https://finance.yahoo.com/news/subscriptions-control-cnet-survey-shows-110000941.html" target="_blank" rel="noopener" class="text-xs text-blue-300 hover:underline mt-2 inline-block">CNET / Yahoo Finance &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- From the blog -->
+    <section class="py-16 sm:py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-10">From the blog</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="blog/subscription-audit-313-month.html" class="block bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 hover:shadow-md transition">
+                    <div class="text-xs font-semibold text-brand uppercase tracking-wider mb-2">Personal finance</div>
+                    <h3 class="font-bold text-lg mb-2">I am spending $313 a month on subscriptions. Here is what I learned.</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">A full audit of one real subscription list, and why the waste was not where you would expect.</p>
+                </a>
+                <a href="blog/how-much-americans-spend-on-subscriptions.html" class="block bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 hover:shadow-md transition">
+                    <div class="text-xs font-semibold text-brand uppercase tracking-wider mb-2">Data and insights</div>
+                    <h3 class="font-bold text-lg mb-2">How much do Americans really spend on subscriptions in 2026?</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">The average is over $200 a month, and most people underestimate it by half. The data, and what to do about yours.</p>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -228,11 +254,25 @@
     }
     </script>
 
+    <!-- Final CTA -->
+    <section class="px-4 pb-16 sm:pb-24">
+        <div class="max-w-3xl mx-auto text-center bg-brand rounded-3xl px-6 py-12 sm:py-14">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Your number is two minutes away</h2>
+            <p class="text-blue-100 mb-8">Free, private, and no signup. The worst case is you find out you are doing fine.</p>
+            <a href="calculator.html" class="inline-block bg-white text-brand px-8 py-4 rounded-xl text-base font-semibold hover:bg-blue-50 transition">Calculate my total</a>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="border-t border-gray-100 dark:border-gray-700 py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600 dark:text-gray-300">
+            <p class="mb-3">
+                <a href="index.html" class="hover:text-brand mx-2">Home</a>
+                <a href="calculator.html" class="hover:text-brand mx-2">Calculator</a>
+                <a href="blog/index.html" class="hover:text-brand mx-2">Blog</a>
+                <a href="privacy.html" class="hover:text-brand mx-2">Privacy</a>
+            </p>
             <p>&copy; 2026 SubCheck</p>
-            <p class="mt-1"><a href="privacy.html" class="hover:text-brand">Privacy</a></p>
         </div>
     </footer>
 
