@@ -252,7 +252,7 @@ calculateBtn.addEventListener('click', () => {
 const PRESET_ICONS = {
     'Netflix': '🎬', 'Spotify': '🎵', 'YouTube Premium': '▶️', 'Disney+': '✨',
     'Hulu': '📺', 'Amazon Prime': '📦', 'Apple Music': '🎧', 'ChatGPT Plus': '🤖',
-    'Adobe CC': '🎨', 'iCloud+': '☁️', 'Xbox Game Pass': '🎮', 'Gym Membership': '💪',
+    'Adobe CC': '🎨', 'iCloud+': '☁️', 'Xbox Game Pass Ultimate': '🎮', 'Gym Membership': '💪',
 };
 
 function presetButtonLabel(preset, added) {
