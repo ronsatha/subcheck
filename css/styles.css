@@ -54,3 +54,8 @@ input[type="number"] {
     nav, footer, .no-print { display: none !important; }
     body { background: white; }
 }
+
+/* Dark mode: native controls and scrollbars follow the theme */
+html.dark {
+    color-scheme: dark;
+}

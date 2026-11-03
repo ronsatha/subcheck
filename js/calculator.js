@@ -54,7 +54,7 @@ let rowId = 0;
 function createRow(data = {}) {
     const id = rowId++;
     const row = document.createElement('div');
-    row.className = 'subscription-row grid grid-cols-1 sm:grid-cols-12 gap-3 mb-3 items-start bg-gray-50 sm:bg-transparent border border-gray-100 sm:border-0 rounded-xl p-3 sm:p-0';
+    row.className = 'subscription-row grid grid-cols-1 sm:grid-cols-12 gap-3 mb-3 items-start bg-gray-50 dark:bg-gray-700 sm:bg-transparent border border-gray-100 dark:border-gray-700 sm:border-0 rounded-xl p-3 sm:p-0';
     row.dataset.id = id;
     if (data.presetName) row.dataset.preset = data.presetName;
 
@@ -67,7 +67,7 @@ function createRow(data = {}) {
             <input type="text"
                    placeholder="e.g. Netflix"
                    value="${data.name || ''}"
-                   class="service-name w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
+                   class="service-name w-full border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
                    aria-label="Service name" />
         </div>
         <div class="sm:col-span-2 relative">
@@ -77,11 +77,11 @@ function createRow(data = {}) {
                    step="0.01"
                    min="0"
                    value="${data.cost != null ? data.cost : ''}"
-                   class="cost w-full border border-gray-200 rounded-lg pl-7 pr-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
+                   class="cost w-full border border-gray-200 dark:border-gray-600 rounded-lg pl-7 pr-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
                    aria-label="Monthly cost" />
         </div>
         <div class="sm:col-span-2">
-            <select class="frequency w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-white focus:border-brand focus:ring-1 focus:ring-brand"
+            <select class="frequency w-full border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm bg-white dark:bg-gray-800 focus:border-brand focus:ring-1 focus:ring-brand"
                     aria-label="Billing frequency">
                 <option value="monthly"   ${data.frequency === 'monthly'   ? 'selected' : ''}>Monthly</option>
                 <option value="quarterly"  ${data.frequency === 'quarterly' ? 'selected' : ''}>Quarterly</option>
@@ -89,7 +89,7 @@ function createRow(data = {}) {
             </select>
         </div>
         <div class="sm:col-span-3">
-            <select class="category w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-white focus:border-brand focus:ring-1 focus:ring-brand"
+            <select class="category w-full border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm bg-white dark:bg-gray-800 focus:border-brand focus:ring-1 focus:ring-brand"
                     aria-label="Category">
                 ${categoryOptions}
             </select>
@@ -189,8 +189,8 @@ const PRESET_ICONS = {
 function presetButtonLabel(preset, added) {
     const icon = PRESET_ICONS[preset.name] || '➕';
     return added
-        ? `<span>✓</span> ${preset.name} <span class="text-xs text-gray-500 font-normal">added</span>`
-        : `<span>${icon}</span> ${preset.name} <span class="text-xs text-gray-500 font-normal">$${preset.cost.toFixed(2)}</span>`;
+        ? `<span>✓</span> ${preset.name} <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">added</span>`
+        : `<span>${icon}</span> ${preset.name} <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">$${preset.cost.toFixed(2)}</span>`;
 }
 
 // A preset button is disabled only while a row with that service name exists.
@@ -214,7 +214,7 @@ function syncPresetButtons() {
 
 PRESETS.forEach(preset => {
     const btn = document.createElement('button');
-    btn.className = 'flex items-center gap-1.5 px-3.5 py-2 bg-gray-50 border border-gray-200 hover:border-brand hover:bg-blue-50 text-gray-700 hover:text-brand text-sm rounded-lg transition font-medium shadow-sm hover:shadow';
+    btn.className = 'flex items-center gap-1.5 px-3.5 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:border-brand hover:bg-blue-50 text-gray-700 dark:text-gray-300 hover:text-brand text-sm rounded-lg transition font-medium shadow-sm hover:shadow';
     btn.dataset.preset = preset.name;
     btn.innerHTML = presetButtonLabel(preset, false);
     btn.addEventListener('click', () => {

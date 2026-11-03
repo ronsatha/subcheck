@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){try{var t=localStorage.getItem('subcheck_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      var nav=document.querySelector('nav'); if(!nav) return;
+      var wrap=nav.querySelector('.justify-between')||nav.querySelector('div'); if(!wrap) return;
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Toggle dark mode'); b.title='Toggle dark mode';
+      b.className='w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand transition text-base';
+      function paint(){b.textContent=document.documentElement.classList.contains('dark')?'\u2600':'\u263E';}
+      paint();
+      b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('subcheck_theme',d?'dark':'light');}catch(e){} paint();});
+      wrap.appendChild(b);
+    });})();
+    </script>
     <!-- Impact Affiliate Verification -->
     <meta name='impact-site-verification' value='86b2a50d-c304-4f15-b266-b9e9cf716b6f'>
     <!-- Google Analytics -->
@@ -34,6 +48,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
@@ -48,19 +63,19 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100">
 
     <!-- Navigation -->
-    <nav class="bg-white border-b border-gray-100">
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <a href="index.html" class="text-xl font-bold text-brand">
                 <span class="inline-block mr-1">&#9745;</span> SubCheck
             </a>
             <div class="flex items-center gap-4 sm:gap-5">
-                <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Home</a>
-                <a href="blog/index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Blog</a>
-                <a href="privacy.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Privacy</a>
-                <a href="calculator.html" class="text-sm font-semibold text-brand hover:text-brand-dark border border-gray-200 px-4 py-1.5 rounded-lg transition">
+                <a href="index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Home</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Blog</a>
+                <a href="privacy.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Privacy</a>
+                <a href="calculator.html" class="text-sm font-semibold text-brand hover:text-brand-dark border border-gray-200 dark:border-gray-600 px-4 py-1.5 rounded-lg transition">
                     Open Calculator &rarr;
                 </a>
             </div>
@@ -71,13 +86,13 @@
     <section class="py-16 sm:py-24 px-4">
         <div class="max-w-3xl mx-auto text-center">
             <p class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Free tool. No signup. No ads.</p>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 leading-tight mb-6">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight mb-6">
             Calculate Your Total Subscription Spending
             </h1>
-            <p class="text-xl sm:text-2xl text-gray-700 font-medium mb-8">
+            <p class="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium mb-8">
             Add up your subscriptions. See what they cost per year.
             </p>
-            <p class="text-lg text-gray-500 max-w-xl mx-auto mb-10">
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto mb-10">
                 A simple calculator that totals your recurring charges and shows where the money goes. Nothing to install, nothing to connect. Takes about 2 minutes.
             </p>
             <a href="calculator.html"
@@ -90,46 +105,46 @@
 
     <!-- Product Preview (example) -->
     <section class="px-4 pb-16 sm:pb-20">
-        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl shadow-gray-200/60 border border-gray-100 p-6 sm:p-8 text-left">
+        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/60 border border-gray-100 dark:border-gray-700 p-6 sm:p-8 text-left">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="font-bold text-lg">Your audit at a glance</h2>
-                <span class="text-xs font-semibold bg-blue-50 text-brand px-3 py-1 rounded-full">Example</span>
+                <span class="text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-brand px-3 py-1 rounded-full">Example</span>
             </div>
             <div class="grid grid-cols-3 gap-4 text-center mb-8">
-                <div><div class="text-2xl sm:text-3xl font-extrabold">$219</div><div class="text-xs text-gray-500 mt-1">per month</div></div>
-                <div><div class="text-2xl sm:text-3xl font-extrabold text-brand">$2,628</div><div class="text-xs text-gray-500 mt-1">per year</div></div>
-                <div><div class="text-2xl sm:text-3xl font-extrabold">14</div><div class="text-xs text-gray-500 mt-1">subscriptions</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold">$219</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per month</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold text-brand">$2,628</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">per year</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold">14</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">subscriptions</div></div>
             </div>
             <div class="space-y-3 text-sm">
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Streaming</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-brand h-2.5 rounded-full" style="width:38%"></div></div><span class="w-16 text-right font-medium">$84/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Software</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-emerald-500 h-2.5 rounded-full" style="width:21%"></div></div><span class="w-16 text-right font-medium">$46/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Fitness</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-amber-500 h-2.5 rounded-full" style="width:16%"></div></div><span class="w-16 text-right font-medium">$35/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Other</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-violet-500 h-2.5 rounded-full" style="width:14%"></div></div><span class="w-16 text-right font-medium">$30/mo</span></div>
-                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Music</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-pink-500 h-2.5 rounded-full" style="width:11%"></div></div><span class="w-16 text-right font-medium">$24/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Streaming</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-brand h-2.5 rounded-full" style="width:38%"></div></div><span class="w-16 text-right font-medium">$84/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Software</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-emerald-500 h-2.5 rounded-full" style="width:21%"></div></div><span class="w-16 text-right font-medium">$46/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Fitness</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-amber-500 h-2.5 rounded-full" style="width:16%"></div></div><span class="w-16 text-right font-medium">$35/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Other</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-violet-500 h-2.5 rounded-full" style="width:14%"></div></div><span class="w-16 text-right font-medium">$30/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600 dark:text-gray-300">Music</span><div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-2.5"><div class="bg-pink-500 h-2.5 rounded-full" style="width:11%"></div></div><span class="w-16 text-right font-medium">$24/mo</span></div>
             </div>
-            <p class="text-xs text-gray-500 mt-6">Example numbers, built from the $219 a month average cited below. Your audit uses only the numbers you type in.</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-6">Example numbers, built from the $219 a month average cited below. Your audit uses only the numbers you type in.</p>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="bg-white py-16 sm:py-20 border-t border-gray-100">
+    <section class="bg-white dark:bg-gray-800 py-16 sm:py-20 border-t border-gray-100 dark:border-gray-700">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <h2 class="text-xl sm:text-2xl font-bold text-center mb-3">Why it matters</h2>
             <p class="text-sm text-gray-400 text-center mb-10">Recent research on subscription spending in the U.S.</p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
                 <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900">$1,080</div>
-                    <div class="text-gray-500 mt-2 text-sm">Average yearly subscription spend</div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">$1,080</div>
+                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Average yearly subscription spend</div>
                     <a href="https://finance.yahoo.com/news/subscriptions-control-cnet-survey-shows-110000941.html" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">CNET / Yahoo Finance &rarr;</a>
                 </div>
                 <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900">42%</div>
-                    <div class="text-gray-500 mt-2 text-sm">Forgot about a subscription they still pay for</div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">42%</div>
+                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Forgot about a subscription they still pay for</div>
                     <a href="https://www.crresearch.com/blog/subscription-service-statistics-and-costs/" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">C+R Research &rarr;</a>
                 </div>
                 <div>
-                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900">$219</div>
-                    <div class="text-gray-500 mt-2 text-sm">What people actually spend per month (they guess $111)</div>
+                    <div class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-gray-100">$219</div>
+                    <div class="text-gray-500 dark:text-gray-400 mt-2 text-sm">What people actually spend per month (they guess $111)</div>
                     <a href="https://www.cnbc.com/2022/09/06/consumers-underestimate-monthly-subscription-costs-by-at-least-100.html" target="_blank" rel="noopener" class="text-xs text-brand hover:underline mt-1 inline-block">CNBC &rarr;</a>
                 </div>
             </div>
@@ -142,19 +157,19 @@
             <h2 class="text-xl sm:text-2xl font-bold text-center mb-12">How it works</h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">1</div>
+                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">1</div>
                     <h3 class="font-semibold mb-2">List your subscriptions</h3>
-                    <p class="text-sm text-gray-500">Type in each service, its cost, and how often you're billed. Quick-add buttons for common ones like Netflix and Spotify.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Type in each service, its cost, and how often you're billed. Quick-add buttons for common ones like Netflix and Spotify.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">2</div>
+                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">2</div>
                     <h3 class="font-semibold mb-2">See the total</h3>
-                    <p class="text-sm text-gray-500">Get your monthly and yearly cost with a chart showing where the money goes by category.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Get your monthly and yearly cost with a chart showing where the money goes by category.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">3</div>
+                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-4">3</div>
                     <h3 class="font-semibold mb-2">Download or save</h3>
-                    <p class="text-sm text-gray-500">Export your results as a CSV or PDF. Everything runs in your browser. We never see your data.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Export your results as a CSV or PDF. Everything runs in your browser. We never see your data.</p>
                 </div>
             </div>
             <div class="text-center mt-12">
@@ -167,9 +182,9 @@
     </section>
 
     <!-- Open Source Note -->
-    <section class="bg-white border-t border-gray-100 py-12 px-4">
+    <section class="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-12 px-4">
         <div class="max-w-2xl mx-auto text-center">
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
                 SubCheck is free and <a href="https://github.com/ronsatha/subcheck" target="_blank" rel="noopener" class="text-brand hover:underline">open source</a>.
                 No accounts. No ads. No tracking beyond basic analytics.
                 Built because subscription spending is a problem worth solving without adding another subscription to solve it.
@@ -182,21 +197,21 @@
         <div class="max-w-3xl mx-auto">
             <h2 class="text-xl sm:text-2xl font-bold text-center mb-10">Common questions</h2>
             <div class="space-y-4">
-                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5">
                     <summary class="font-semibold cursor-pointer">Is my list sent to a server?</summary>
-                    <p class="text-sm text-gray-600 mt-3">No. Everything you type stays in your browser, in local storage on your own device. There is no SubCheck server collecting subscription lists, and we never see yours.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">No. Everything you type stays in your browser, in local storage on your own device. There is no SubCheck server collecting subscription lists, and we never see yours.</p>
                 </details>
-                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5">
                     <summary class="font-semibold cursor-pointer">Do I need an account?</summary>
-                    <p class="text-sm text-gray-600 mt-3">No. There is no signup, no email address to hand over, and nothing to install. Open the calculator, add your subscriptions, and see your total.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">No. There is no signup, no email address to hand over, and nothing to install. Open the calculator, add your subscriptions, and see your total.</p>
                 </details>
-                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5">
                     <summary class="font-semibold cursor-pointer">How is the monthly cost calculated for quarterly and yearly bills?</summary>
-                    <p class="text-sm text-gray-600 mt-3">Quarterly charges are divided by 3 and yearly charges are divided by 12, so every subscription is compared on the same monthly basis. Your yearly total is the monthly total times 12.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">Quarterly charges are divided by 3 and yearly charges are divided by 12, so every subscription is compared on the same monthly basis. Your yearly total is the monthly total times 12.</p>
                 </details>
-                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-5">
                     <summary class="font-semibold cursor-pointer">What happens to my data if I clear my browser?</summary>
-                    <p class="text-sm text-gray-600 mt-3">It is gone. Your list lives only in your browser's local storage, so clearing your browser data, or using Start Over on the results page, removes it completely. Download the CSV first if you want a copy.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">It is gone. Your list lives only in your browser's local storage, so clearing your browser data, or using Start Over on the results page, removes it completely. Download the CSV first if you want a copy.</p>
                 </details>
             </div>
         </div>
@@ -216,8 +231,8 @@
     </script>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-100 py-8">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600">
+    <footer class="border-t border-gray-100 dark:border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600 dark:text-gray-300">
             <p>&copy; 2026 SubCheck</p>
             <p class="mt-1"><a href="privacy.html" class="hover:text-brand">Privacy</a></p>
         </div>

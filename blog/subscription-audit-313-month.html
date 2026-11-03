@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){try{var t=localStorage.getItem('subcheck_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      var nav=document.querySelector('nav'); if(!nav) return;
+      var wrap=nav.querySelector('.justify-between')||nav.querySelector('div'); if(!wrap) return;
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Toggle dark mode'); b.title='Toggle dark mode';
+      b.className='w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand transition text-base';
+      function paint(){b.textContent=document.documentElement.classList.contains('dark')?'\u2600':'\u263E';}
+      paint();
+      b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('subcheck_theme',d?'dark':'light');}catch(e){} paint();});
+      wrap.appendChild(b);
+    });})();
+    </script>
     <title>I'm Spending $313/Month on Subscriptions — Here's What I Learned | SubCheck</title>
     <meta name="description" content="A subscription audit revealed $3,756 in annual spending. The real waste wasn't forgotten services—it was nice-to-have subscriptions I kept out of habit.">
+    <link rel="stylesheet" href="../css/styles.css">
     <meta name="keywords" content="subscription audit, subscription spending, cancel subscriptions, annual billing, monthly spending">
     <link rel="canonical" href="https://subcheckapp.com/blog/subscription-audit-313-month">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
@@ -19,6 +34,7 @@
     <meta name="twitter:description" content="A subscription audit revealed $3,756 in annual spending. The real waste was not forgotten services, it was nice-to-have subscriptions kept out of habit.">
     <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB629TESJJ"></script>
@@ -29,19 +45,19 @@
       gtag('config', 'G-BB629TESJJ');
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <!-- Navigation -->
-    <nav class="bg-white border-b border-gray-200">
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-600">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="../index.html" class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <a href="../index.html" class="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                     <span class="text-2xl">☑</span> SubCheck
                 </a>
                 <div class="flex gap-6">
-                    <a href="../index.html" class="text-gray-600 hover:text-gray-900 transition">Home</a>
-                    <a href="../blog/index.html" class="text-gray-600 hover:text-gray-900 transition">Blog</a>
-                    <a href="../privacy.html" class="text-gray-600 hover:text-gray-900 transition">Privacy</a>
-                    <a href="../calculator.html" class="text-blue-600 hover:text-blue-700 font-medium transition">Open Calculator →</a>
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 transition">Home</a>
+                    <a href="../blog/index.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 transition">Blog</a>
+                    <a href="../privacy.html" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 transition">Privacy</a>
+                    <a href="../calculator.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium transition">Open Calculator →</a>
                 </div>
             </div>
         </div>
@@ -50,74 +66,74 @@
     <!-- Article -->
     <article class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         <header class="mb-12">
-            <p class="text-sm text-gray-500 mb-4">February 24, 2026</p>
-            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight">I'm Spending $313/Month on Subscriptions — Here's What I Learned</h1>
-            <p class="text-xl text-gray-600 leading-relaxed">A subscription audit revealed $3,756 in annual spending. The real waste wasn't forgotten services—it was nice-to-have subscriptions I kept out of habit.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">February 24, 2026</p>
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight">I'm Spending $313/Month on Subscriptions — Here's What I Learned</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">A subscription audit revealed $3,756 in annual spending. The real waste wasn't forgotten services—it was nice-to-have subscriptions I kept out of habit.</p>
         </header>
 
         <div class="prose prose-lg max-w-none">
             
-            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">The Reality Check</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-12 mb-4">The Reality Check</h2>
             
-            <p class="text-gray-700 leading-relaxed mb-6">After building SubCheck, I used it on myself. Total monthly subscription spending: $313, or $3,756 annually.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">After building SubCheck, I used it on myself. Total monthly subscription spending: $313, or $3,756 annually.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6">I categorized everything into three groups: Essential (daily use, can't replace), Nice-to-Have (valuable but not critical), and Cancel-Worthy (paying for but not using).</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">I categorized everything into three groups: Essential (daily use, can't replace), Nice-to-Have (valuable but not critical), and Cancel-Worthy (paying for but not using).</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>The breakdown:</strong></p>
-            <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>The breakdown:</strong></p>
+            <ul class="list-disc pl-6 mb-6 text-gray-700 dark:text-gray-300 space-y-2">
                 <li>Essential: $149/month (Claude Pro, Apple One, Netflix, Tennis Channel, iCloud storage)</li>
                 <li>Nice-to-Have: $142/month (MyFICO, AMC A-List, streaming services, Masterclass)</li>
                 <li>Cancel-Worthy: $22/month (duplicate ChatGPT subscription, STARZ)</li>
             </ul>
             
-            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">What I Learned</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-12 mb-4">What I Learned</h2>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Annual billing hides costs.</strong> Six subscriptions bill annually, totaling $24/month in monthly equivalents. But they appear as lump sums once per year—$117 here, $92 there—making them invisible in monthly budget reviews.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Annual billing hides costs.</strong> Six subscriptions bill annually, totaling $24/month in monthly equivalents. But they appear as lump sums once per year—$117 here, $92 there—making them invisible in monthly budget reviews.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>The real problem isn't waste, it's drift.</strong> Only $22/month was pure waste (duplicate subscriptions, unused services). The real opportunity was $142/month in "nice-to-have" spending—services I kept out of habit rather than active use.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>The real problem isn't waste, it's drift.</strong> Only $22/month was pure waste (duplicate subscriptions, unused services). The real opportunity was $142/month in "nice-to-have" spending—services I kept out of habit rather than active use.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Duplicates happen even when you're paying attention.</strong> Two ChatGPT Plus subscriptions on different email accounts cost me $20/month for six months before I noticed. Not a forgotten trial—just administrative oversight.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Duplicates happen even when you're paying attention.</strong> Two ChatGPT Plus subscriptions on different email accounts cost me $20/month for six months before I noticed. Not a forgotten trial—just administrative oversight.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Seasonal services cost more as year-round subscriptions.</strong> HBO Max and AMC A-List usage varies by season. Converting these to on-demand (subscribe when needed, cancel when not) saves $250+ annually without losing value.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Seasonal services cost more as year-round subscriptions.</strong> HBO Max and AMC A-List usage varies by season. Converting these to on-demand (subscribe when needed, cancel when not) saves $250+ annually without losing value.</p>
             
-            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">The Fix</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-12 mb-4">The Fix</h2>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Immediate cuts ($42/month):</strong> Duplicate ChatGPT subscription, STARZ, redundant OpenAI subscription.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Immediate cuts ($42/month):</strong> Duplicate ChatGPT subscription, STARZ, redundant OpenAI subscription.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Downgrades ($30/month):</strong> Replace MyFICO with free credit monitoring from banks or Credit Karma.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Downgrades ($30/month):</strong> Replace MyFICO with free credit monitoring from banks or Credit Karma.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Seasonal rotation (~$250/year):</strong> Cancel HBO Max and AMC A-List off-season, reactivate when usage justifies it.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Seasonal rotation (~$250/year):</strong> Cancel HBO Max and AMC A-List off-season, reactivate when usage justifies it.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><strong>Result: $313/month → $241/month. Annual savings: $864.</strong></p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><strong>Result: $313/month → $241/month. Annual savings: $864.</strong></p>
             
-            <p class="text-gray-700 leading-relaxed mb-6">The remaining $241 represents intentional spending on actively-used services, not passive accumulation of forgotten charges.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">The remaining $241 represents intentional spending on actively-used services, not passive accumulation of forgotten charges.</p>
             
-            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Why I Built SubCheck</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-12 mb-4">Why I Built SubCheck</h2>
             
-            <p class="text-gray-700 leading-relaxed mb-6">During this audit, I needed a tool to calculate total spending and convert annual charges to monthly equivalents. Existing solutions required bank connections or user accounts—neither of which I wanted for basic arithmetic.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">During this audit, I needed a tool to calculate total spending and convert annual charges to monthly equivalents. Existing solutions required bank connections or user accounts—neither of which I wanted for basic arithmetic.</p>
             
-            <p class="text-gray-700 leading-relaxed mb-6"><a href="../calculator.html" class="text-blue-600 hover:underline font-medium">SubCheck</a> runs in your browser, stores no data, and automatically converts annual subscriptions to monthly costs. It showed me that my "monthly" spending of $313 included six annual charges that weren't visible in routine reviews.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6"><a href="../calculator.html" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">SubCheck</a> runs in your browser, stores no data, and automatically converts annual subscriptions to monthly costs. It showed me that my "monthly" spending of $313 included six annual charges that weren't visible in routine reviews.</p>
             
-            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">If You're Doing This Yourself</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-12 mb-4">If You're Doing This Yourself</h2>
             
-            <p class="text-gray-700 leading-relaxed mb-6">Spend one hour listing every subscription. Focus on:</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Spend one hour listing every subscription. Focus on:</p>
             
-            <ul class="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <ul class="list-disc pl-6 mb-6 text-gray-700 dark:text-gray-300 space-y-2">
                 <li><strong>Annual charges</strong> — Convert to monthly equivalents to see real recurring costs</li>
                 <li><strong>"Nice-to-have" category</strong> — Services you use occasionally but could eliminate without real impact</li>
                 <li><strong>Seasonal patterns</strong> — Services used 3-4 months per year but paid for 12</li>
             </ul>
             
-            <p class="text-gray-700 leading-relaxed mb-6">The goal isn't minimizing spending—it's aligning dollars with actual value received.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">The goal isn't minimizing spending—it's aligning dollars with actual value received.</p>
             
         </div>
         
-        <footer class="mt-16 pt-8 border-t border-gray-200">
-            <div class="bg-blue-50 rounded-lg p-6">
-                <p class="text-sm text-gray-700 mb-3">
+        <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-600">
+            <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-6">
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">
                     <strong>Try SubCheck</strong> — Free subscription calculator. No signup required.
                 </p>
-                <a href="../calculator.html" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                <a href="../calculator.html" class="inline-block bg-blue-600 dark:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
                     Open Calculator →
                 </a>
             </div>
@@ -126,9 +142,9 @@
     </article>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-600 mt-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-            <p class="text-sm text-gray-500 text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
                 © 2026 SubCheck<br><a href="../privacy.html">Privacy</a>
             </p>
         </div>

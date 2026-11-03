@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){try{var t=localStorage.getItem('subcheck_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      var nav=document.querySelector('nav'); if(!nav) return;
+      var wrap=nav.querySelector('.justify-between')||nav.querySelector('div'); if(!wrap) return;
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Toggle dark mode'); b.title='Toggle dark mode';
+      b.className='w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand transition text-base';
+      function paint(){b.textContent=document.documentElement.classList.contains('dark')?'\u2600':'\u263E';}
+      paint();
+      b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('subcheck_theme',d?'dark':'light');}catch(e){} paint();});
+      wrap.appendChild(b);
+    });})();
+    </script>
     <title>Privacy - SubCheck</title>
     <meta name="description" content="How SubCheck handles your data: your subscription list stays in your browser, and we do not collect names, emails, or payment details.">
     <link rel="canonical" href="https://subcheckapp.com/privacy">
@@ -23,6 +37,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
@@ -37,34 +52,34 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100">
 
-    <nav class="bg-white border-b border-gray-100">
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <a href="index.html" class="text-xl font-bold text-brand">
                 <span class="inline-block mr-1">&#9745;</span> SubCheck
             </a>
             <div class="flex items-center gap-4 sm:gap-5">
-                <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Home</a>
-                <a href="calculator.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Calculator</a>
-                <a href="blog/index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Blog</a>
+                <a href="index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Home</a>
+                <a href="calculator.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Calculator</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Blog</a>
             </div>
         </div>
     </nav>
 
     <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         <h1 class="text-3xl font-bold mb-2">Privacy</h1>
-        <p class="text-gray-500 mb-10">Last updated October 24, 2026.</p>
+        <p class="text-gray-500 dark:text-gray-400 mb-10">Last updated October 24, 2026.</p>
 
         <h2 class="text-xl font-bold mb-3">Your subscription list stays in your browser</h2>
-        <p class="text-gray-600 mb-8">SubCheck is a calculator, not an account. The subscriptions you enter are stored only in your browser, using local storage. They are not sent to a SubCheck server, because there is no SubCheck server that collects them. We never see your list. Clearing your browser data, or using Start Over on the results page, removes it from this browser.</p>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">SubCheck is a calculator, not an account. The subscriptions you enter are stored only in your browser, using local storage. They are not sent to a SubCheck server, because there is no SubCheck server that collects them. We never see your list. Clearing your browser data, or using Start Over on the results page, removes it from this browser.</p>
 
         <h2 class="text-xl font-bold mb-3">What we do not collect</h2>
-        <p class="text-gray-600 mb-8">We do not ask for, and do not collect, your name, email address, payment details, bank logins, or passwords. There is no signup. The prices shown as quick-add presets are examples only. Edit them to match your actual bills.</p>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">We do not ask for, and do not collect, your name, email address, payment details, bank logins, or passwords. There is no signup. The prices shown as quick-add presets are examples only. Edit them to match your actual bills.</p>
 
         <h2 class="text-xl font-bold mb-3">Third party services on this site</h2>
-        <p class="text-gray-600 mb-4">This site loads a small number of third party services. They have their own privacy policies, and they may set cookies or receive technical information such as your browser type and IP address when a page loads:</p>
-        <ul class="list-disc pl-6 text-gray-600 mb-8 space-y-2">
+        <p class="text-gray-600 dark:text-gray-300 mb-4">This site loads a small number of third party services. They have their own privacy policies, and they may set cookies or receive technical information such as your browser type and IP address when a page loads:</p>
+        <ul class="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-8 space-y-2">
             <li>Google Analytics, for anonymous, aggregated usage statistics.</li>
             <li>Google Fonts, for the Inter typeface.</li>
             <li>Tailwind CSS and Chart.js, loaded from public content delivery networks, for styling and for the spending chart on the results page.</li>
@@ -72,14 +87,14 @@
         </ul>
 
         <h2 class="text-xl font-bold mb-3">Cookies</h2>
-        <p class="text-gray-600 mb-8">SubCheck itself does not set tracking cookies for your subscription data. Analytics and the third party services above may set their own cookies. You can block or clear cookies in your browser settings, and the calculator will still work.</p>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">SubCheck itself does not set tracking cookies for your subscription data. Analytics and the third party services above may set their own cookies. You can block or clear cookies in your browser settings, and the calculator will still work.</p>
 
         <h2 class="text-xl font-bold mb-3">Changes</h2>
-        <p class="text-gray-600">If this policy changes, the updated version will be posted here, with a new last updated date.</p>
+        <p class="text-gray-600 dark:text-gray-300">If this policy changes, the updated version will be posted here, with a new last updated date.</p>
     </div>
 
-    <footer class="border-t border-gray-100 py-8">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600">
+    <footer class="border-t border-gray-100 dark:border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600 dark:text-gray-300">
             <p>&copy; 2026 SubCheck</p>
             <p class="mt-1"><a href="index.html" class="hover:text-brand">Home</a></p>
         </div>
