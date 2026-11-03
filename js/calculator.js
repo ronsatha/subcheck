@@ -132,6 +132,10 @@ function updateRunningTotal() {
 
     document.getElementById('runningMonthly').textContent = `$${monthly.toFixed(2)}`;
     document.getElementById('runningYearly').textContent  = `$${(monthly * 12).toFixed(2)}`;
+    const mm = document.getElementById('mobileMonthly');
+    const my = document.getElementById('mobileYearly');
+    if (mm) mm.textContent = `$${monthly.toFixed(2)}/mo`;
+    if (my) my.textContent = `$${(monthly * 12).toFixed(2)}/year`;
 }
 
 // ── Gather subscription data from rows ──────────────────────────
@@ -297,6 +301,9 @@ if (csvImport) {
         reader.readAsText(file);
     });
 }
+
+const mobileCalcBtn = document.getElementById('mobileCalculateBtn');
+if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', () => calculateBtn.click());
 
 // ── Init: Load saved data or ask user ───────────────────────────
 (function init() {
