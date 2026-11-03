@@ -252,7 +252,7 @@
         const labels = sortedCats.map(([k]) => CATEGORY_LABELS[k] || k);
         const values = sortedCats.map(([, v]) => v);
 
-        new Chart(document.getElementById('categoryChart'), {
+        window.__subChart = new Chart(document.getElementById('categoryChart'), {
             type: 'doughnut',
             data: {
                 labels,
@@ -275,6 +275,15 @@
                     }
                 }
             }
+        });
+
+        // Keep the chart legend readable when the theme is toggled after render
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest || !e.target.closest('button[aria-label="Toggle dark mode"]')) return;
+            if (!window.__subChart) return;
+            var goingDark = !document.documentElement.classList.contains('dark');
+            window.__subChart.options.plugins.legend.labels.color = goingDark ? '#D1D5DB' : '#374151';
+            window.__subChart.update();
         });
 
         // ── Category list ───────────────────────────────────────
