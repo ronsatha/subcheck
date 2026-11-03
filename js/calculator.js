@@ -35,6 +35,18 @@ const calculateBtn = document.getElementById('calculateBtn');
 const clearBtn     = document.getElementById('clearBtn');
 const presetsDiv   = document.getElementById('presets');
 
+// ── Analytics events ────────────────────────────────────────────
+function trackEvent(name, params) {
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+}
+let calculatorStarted = false;
+function markCalculatorStarted() {
+    if (!calculatorStarted) {
+        calculatorStarted = true;
+        trackEvent('calculator_started');
+    }
+}
+
 // ── Row counter (for unique IDs) ────────────────────────────────
 let rowId = 0;
 
@@ -42,8 +54,9 @@ let rowId = 0;
 function createRow(data = {}) {
     const id = rowId++;
     const row = document.createElement('div');
-    row.className = 'subscription-row grid grid-cols-1 sm:grid-cols-12 gap-3 mb-3 items-start';
+    row.className = 'subscription-row grid grid-cols-1 sm:grid-cols-12 gap-3 mb-3 items-start bg-gray-50 sm:bg-transparent border border-gray-100 sm:border-0 rounded-xl p-3 sm:p-0';
     row.dataset.id = id;
+    if (data.presetName) row.dataset.preset = data.presetName;
 
     const categoryOptions = CATEGORIES.map(c =>
         `<option value="${c.value}" ${c.value === (data.category || '') ? 'selected' : ''}>${c.label}</option>`
@@ -91,7 +104,11 @@ function createRow(data = {}) {
     row.querySelector('.delete-row').addEventListener('click', () => {
         row.remove();
         updateRunningTotal();
+        syncPresetButtons();
     });
+
+    // If the service name is edited away from a preset, free that preset button again
+    row.querySelector('.service-name').addEventListener('input', syncPresetButtons);
 
     // Wire up live total updates
     row.querySelector('.cost').addEventListener('input', updateRunningTotal);
@@ -134,9 +151,12 @@ function gatherSubscriptions() {
 
 // ── Event: Add Row ──────────────────────────────────────────────
 addRowBtn.addEventListener('click', () => {
+    markCalculatorStarted();
     const row = createRow();
     row.querySelector('.service-name').focus();
 });
+
+container.addEventListener('input', markCalculatorStarted);
 
 // ── Event: Clear All ────────────────────────────────────────────
 clearBtn.addEventListener('click', () => {
@@ -144,6 +164,7 @@ clearBtn.addEventListener('click', () => {
     container.innerHTML = '';
     Storage.clear();
     createRow(); // leave one empty row
+    syncPresetButtons();
 });
 
 // ── Event: Calculate ────────────────────────────────────────────
@@ -153,6 +174,7 @@ calculateBtn.addEventListener('click', () => {
         alert('Please add at least one subscription with a name and cost.');
         return;
     }
+    trackEvent('calculator_completed', { subscription_count: subs.length });
     Storage.save(subs);
     window.location.href = 'results.html';
 });
@@ -164,18 +186,117 @@ const PRESET_ICONS = {
     'Adobe CC': '🎨', 'iCloud+': '☁️', 'Xbox Game Pass': '🎮', 'Gym Membership': '💪',
 };
 
+function presetButtonLabel(preset, added) {
+    const icon = PRESET_ICONS[preset.name] || '➕';
+    return added
+        ? `<span>✓</span> ${preset.name} <span class="text-xs text-gray-500 font-normal">added</span>`
+        : `<span>${icon}</span> ${preset.name} <span class="text-xs text-gray-500 font-normal">$${preset.cost.toFixed(2)}</span>`;
+}
+
+// A preset button is disabled only while a row with that service name exists.
+// Deleting the row, clearing all, or renaming the row frees the button again.
+function syncPresetButtons() {
+    const namesInUse = new Set();
+    container.querySelectorAll('.subscription-row').forEach(row => {
+        const n = row.querySelector('.service-name').value.trim();
+        if (n) namesInUse.add(n);
+    });
+    presetsDiv.querySelectorAll('button[data-preset]').forEach(btn => {
+        const preset = PRESETS.find(pr => pr.name === btn.dataset.preset);
+        if (!preset) return;
+        const added = namesInUse.has(preset.name);
+        btn.classList.toggle('opacity-50', added);
+        btn.classList.toggle('pointer-events-none', added);
+        btn.disabled = added;
+        btn.innerHTML = presetButtonLabel(preset, added);
+    });
+}
+
 PRESETS.forEach(preset => {
     const btn = document.createElement('button');
     btn.className = 'flex items-center gap-1.5 px-3.5 py-2 bg-gray-50 border border-gray-200 hover:border-brand hover:bg-blue-50 text-gray-700 hover:text-brand text-sm rounded-lg transition font-medium shadow-sm hover:shadow';
-    const icon = PRESET_ICONS[preset.name] || '➕';
-    btn.innerHTML = `<span>${icon}</span> ${preset.name} <span class="text-xs text-gray-400 font-normal">$${preset.cost.toFixed(2)}</span>`;
+    btn.dataset.preset = preset.name;
+    btn.innerHTML = presetButtonLabel(preset, false);
     btn.addEventListener('click', () => {
-        createRow({ name: preset.name, cost: preset.cost, frequency: 'monthly', category: preset.category });
-        btn.classList.add('opacity-50', 'pointer-events-none');
-        btn.innerHTML = `<span>✓</span> ${preset.name} <span class="text-xs text-gray-400 font-normal">added</span>`;
+        markCalculatorStarted();
+        createRow({ name: preset.name, cost: preset.cost, frequency: 'monthly', category: preset.category, presetName: preset.name });
+        syncPresetButtons();
     });
     presetsDiv.appendChild(btn);
 });
+
+// ── Preset search ───────────────────────────────────────────────
+const presetSearch = document.getElementById('presetSearch');
+if (presetSearch) {
+    presetSearch.addEventListener('input', () => {
+        const q = presetSearch.value.trim().toLowerCase();
+        presetsDiv.querySelectorAll('button[data-preset]').forEach(btn => {
+            btn.style.display = (!q || btn.dataset.preset.toLowerCase().includes(q)) ? '' : 'none';
+        });
+    });
+}
+
+// ── Sample data ─────────────────────────────────────────────────
+const SAMPLE_DATA = [
+    { name: 'Netflix', cost: 15.49, frequency: 'monthly', category: 'streaming' },
+    { name: 'Spotify', cost: 11.99, frequency: 'monthly', category: 'music' },
+    { name: 'Disney+', cost: 13.99, frequency: 'monthly', category: 'streaming' },
+    { name: 'ChatGPT Plus', cost: 20.00, frequency: 'monthly', category: 'software' },
+    { name: 'iCloud+', cost: 2.99, frequency: 'monthly', category: 'cloud' },
+    { name: 'Gym Membership', cost: 49.99, frequency: 'monthly', category: 'fitness' },
+];
+const sampleBtn = document.getElementById('sampleBtn');
+if (sampleBtn) {
+    sampleBtn.addEventListener('click', () => {
+        markCalculatorStarted();
+        container.innerHTML = '';
+        SAMPLE_DATA.forEach(sub => createRow(sub));
+        syncPresetButtons();
+        trackEvent('sample_data_loaded', { subscription_count: SAMPLE_DATA.length });
+    });
+}
+
+// ── CSV import (accepts the format of SubCheck's own CSV export) ──
+function parseCsvLine(line) {
+    const fields = [];
+    const re = /"([^"]*)"|([^,]+)/g;
+    let m;
+    while ((m = re.exec(line)) !== null) fields.push((m[1] !== undefined ? m[1] : m[2]).trim());
+    return fields;
+}
+const csvImport = document.getElementById('csvImport');
+if (csvImport) {
+    csvImport.addEventListener('change', () => {
+        const file = csvImport.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            const labelToValue = {};
+            CATEGORIES.forEach(c => { labelToValue[c.label.toLowerCase()] = c.value; });
+            let added = 0;
+            String(reader.result).split(/\r?\n/).forEach((line, idx) => {
+                if (!line.trim() || idx === 0) return; // skip header
+                const f = parseCsvLine(line);
+                const name = f[0];
+                const cost = parseFloat(f[1]);
+                if (!name || !(cost > 0) || /total/i.test(name)) return;
+                const freq = ['monthly', 'quarterly', 'yearly'].includes((f[2] || '').toLowerCase()) ? f[2].toLowerCase() : 'monthly';
+                const cat = labelToValue[(f[3] || '').toLowerCase()] || (CATEGORIES.some(c => c.value === (f[3] || '').toLowerCase()) ? f[3].toLowerCase() : 'other');
+                createRow({ name, cost, frequency: freq, category: cat });
+                added++;
+            });
+            if (added > 0) {
+                markCalculatorStarted();
+                syncPresetButtons();
+                trackEvent('csv_imported', { subscription_count: added });
+            } else {
+                alert('No subscriptions found in that CSV. Expected columns: Service Name, Cost, Billing Frequency, Category.');
+            }
+            csvImport.value = '';
+        };
+        reader.readAsText(file);
+    });
+}
 
 // ── Init: Load saved data or ask user ───────────────────────────
 (function init() {
@@ -189,6 +310,7 @@ PRESETS.forEach(preset => {
         );
         if (loadPrevious) {
             saved.forEach(sub => createRow(sub));
+            syncPresetButtons();
         } else {
             Storage.clear();
             createRow();

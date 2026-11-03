@@ -13,6 +13,18 @@
     </script>
     <title>Calculate Subscriptions - SubCheck</title>
     <meta name="description" content="Enter your subscriptions and see exactly how much you spend per year.">
+    <link rel="canonical" href="https://subcheckapp.com/calculator.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SubCheck">
+    <meta property="og:title" content="Calculate Subscriptions - SubCheck">
+    <meta property="og:description" content="Enter your subscriptions and see exactly how much you spend per year.">
+    <meta property="og:url" content="https://subcheckapp.com/calculator.html">
+    <meta property="og:image" content="https://subcheckapp.com/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculate Subscriptions - SubCheck">
+    <meta name="twitter:description" content="Enter your subscriptions and see exactly how much you spend per year.">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +53,11 @@
             <a href="index.html" class="text-xl font-bold text-brand">
                 <span class="inline-block mr-1">&#9745;</span> SubCheck
             </a>
-            <a href="index.html" class="text-sm text-gray-500 hover:text-gray-700 transition">&larr; Home</a>
+            <div class="flex items-center gap-4 sm:gap-5">
+                <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Home</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Blog</a>
+                <a href="privacy.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Privacy</a>
+            </div>
         </div>
     </nav>
 
@@ -70,8 +86,16 @@
                 <h2 class="text-sm font-semibold text-gray-700">Quick add popular services</h2>
                 <span class="text-xs text-gray-400">(click to add)</span>
             </div>
+            <input id="presetSearch" type="text" placeholder="Search services, e.g. Netflix"
+                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm mb-3 focus:border-brand focus:ring-1 focus:ring-brand" aria-label="Search preset services" />
             <div id="presets" class="flex flex-wrap gap-2">
                 <!-- Preset buttons injected by JS -->
+            </div>
+            <p class="text-xs text-gray-500 mt-3">Preset prices are examples from February 2026 and services change their prices often. Edit each one to match your actual bill.</p>
+            <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+                <button id="sampleBtn" class="px-4 py-2 text-sm font-medium border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-brand transition">Try with sample data</button>
+                <label for="csvImport" class="px-4 py-2 text-sm font-medium border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-brand transition cursor-pointer">Import a CSV list</label>
+                <input id="csvImport" type="file" accept=".csv,text/csv" class="hidden" />
             </div>
         </div>
 
@@ -121,7 +145,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-xs text-gray-400">
+    <footer class="py-8 text-center text-xs text-gray-600">
         <p>Your data stays in your browser. We never see it.</p>
         <p class="mt-1"><a href="privacy.html" class="hover:text-gray-600">Privacy</a></p>
     </footer>

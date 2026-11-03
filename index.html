@@ -16,6 +16,18 @@
     <title>Free Subscription Calculator - Track Your Monthly Spending | SubCheck</title>
     <meta name="description" content="Find hidden subscriptions bleeding your budget. Free calculator shows your total monthly and yearly costs in 2 minutes. No signup, no data stored, 100% private.">
     <meta name="keywords" content="subscription calculator, track subscriptions, monthly spending, cancel subscriptions, subscription audit">
+    <link rel="canonical" href="https://subcheckapp.com/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SubCheck">
+    <meta property="og:title" content="Free Subscription Calculator - Track Your Monthly Spending | SubCheck">
+    <meta property="og:description" content="Find hidden subscriptions bleeding your budget. Free calculator shows your total monthly and yearly costs in 2 minutes. No signup, no data stored, 100% private.">
+    <meta property="og:url" content="https://subcheckapp.com/">
+    <meta property="og:image" content="https://subcheckapp.com/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Subscription Calculator - Track Your Monthly Spending | SubCheck">
+    <meta name="twitter:description" content="Find hidden subscriptions bleeding your budget. Free calculator shows your total monthly and yearly costs in 2 minutes. No signup, no data stored, 100% private.">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,9 +56,11 @@
             <a href="index.html" class="text-xl font-bold text-brand">
                 <span class="inline-block mr-1">&#9745;</span> SubCheck
             </a>
-            <div class="flex items-center gap-5">
-                <a href="blog/index.html" class="text-sm font-semibold text-gray-700 hover:text-brand border border-gray-200 px-4 py-1.5 rounded-lg transition">Blog</a>
-                <a href="calculator.html" class="text-sm font-medium text-brand hover:text-brand-dark transition">
+            <div class="flex items-center gap-4 sm:gap-5">
+                <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Home</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Blog</a>
+                <a href="privacy.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Privacy</a>
+                <a href="calculator.html" class="text-sm font-semibold text-brand hover:text-brand-dark border border-gray-200 px-4 py-1.5 rounded-lg transition">
                     Open Calculator &rarr;
                 </a>
             </div>
@@ -71,6 +85,29 @@
                 Open the calculator
             </a>
             <p class="text-xs text-gray-400 mt-4">Your data stays in your browser. We never see it.</p>
+        </div>
+    </section>
+
+    <!-- Product Preview (example) -->
+    <section class="px-4 pb-16 sm:pb-20">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl shadow-gray-200/60 border border-gray-100 p-6 sm:p-8 text-left">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-bold text-lg">Your audit at a glance</h2>
+                <span class="text-xs font-semibold bg-blue-50 text-brand px-3 py-1 rounded-full">Example</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 text-center mb-8">
+                <div><div class="text-2xl sm:text-3xl font-extrabold">$219</div><div class="text-xs text-gray-500 mt-1">per month</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold text-brand">$2,628</div><div class="text-xs text-gray-500 mt-1">per year</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold">14</div><div class="text-xs text-gray-500 mt-1">subscriptions</div></div>
+            </div>
+            <div class="space-y-3 text-sm">
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Streaming</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-brand h-2.5 rounded-full" style="width:38%"></div></div><span class="w-16 text-right font-medium">$84/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Software</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-emerald-500 h-2.5 rounded-full" style="width:21%"></div></div><span class="w-16 text-right font-medium">$46/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Fitness</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-amber-500 h-2.5 rounded-full" style="width:16%"></div></div><span class="w-16 text-right font-medium">$35/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Other</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-violet-500 h-2.5 rounded-full" style="width:14%"></div></div><span class="w-16 text-right font-medium">$30/mo</span></div>
+                <div class="flex items-center gap-3"><span class="w-24 text-gray-600">Music</span><div class="flex-1 bg-gray-100 rounded-full h-2.5"><div class="bg-pink-500 h-2.5 rounded-full" style="width:11%"></div></div><span class="w-16 text-right font-medium">$24/mo</span></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-6">Example numbers, built from the $219 a month average cited below. Your audit uses only the numbers you type in.</p>
         </div>
     </section>
 
@@ -140,9 +177,47 @@
         </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="py-16 sm:py-20 px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-10">Common questions</h2>
+            <div class="space-y-4">
+                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                    <summary class="font-semibold cursor-pointer">Is my list sent to a server?</summary>
+                    <p class="text-sm text-gray-600 mt-3">No. Everything you type stays in your browser, in local storage on your own device. There is no SubCheck server collecting subscription lists, and we never see yours.</p>
+                </details>
+                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                    <summary class="font-semibold cursor-pointer">Do I need an account?</summary>
+                    <p class="text-sm text-gray-600 mt-3">No. There is no signup, no email address to hand over, and nothing to install. Open the calculator, add your subscriptions, and see your total.</p>
+                </details>
+                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                    <summary class="font-semibold cursor-pointer">How is the monthly cost calculated for quarterly and yearly bills?</summary>
+                    <p class="text-sm text-gray-600 mt-3">Quarterly charges are divided by 3 and yearly charges are divided by 12, so every subscription is compared on the same monthly basis. Your yearly total is the monthly total times 12.</p>
+                </details>
+                <details class="bg-white rounded-xl border border-gray-100 p-5">
+                    <summary class="font-semibold cursor-pointer">What happens to my data if I clear my browser?</summary>
+                    <p class="text-sm text-gray-600 mt-3">It is gone. Your list lives only in your browser's local storage, so clearing your browser data, or using Start Over on the results page, removes it completely. Download the CSV first if you want a copy.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Is my list sent to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything you type stays in your browser, in local storage on your own device. There is no SubCheck server collecting subscription lists, and we never see yours."}},
+            {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no signup, no email address to hand over, and nothing to install. Open the calculator, add your subscriptions, and see your total."}},
+            {"@type": "Question", "name": "How is the monthly cost calculated for quarterly and yearly bills?", "acceptedAnswer": {"@type": "Answer", "text": "Quarterly charges are divided by 3 and yearly charges are divided by 12, so every subscription is compared on the same monthly basis. Your yearly total is the monthly total times 12."}},
+            {"@type": "Question", "name": "What happens to my data if I clear my browser?", "acceptedAnswer": {"@type": "Answer", "text": "It is gone. Your list lives only in your browser's local storage, so clearing your browser data, or using Start Over on the results page, removes it completely. Download the CSV first if you want a copy."}}
+        ]
+    }
+    </script>
+
     <!-- Footer -->
     <footer class="border-t border-gray-100 py-8">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-400">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600">
             <p>&copy; 2026 SubCheck</p>
             <p class="mt-1"><a href="privacy.html" class="hover:text-brand">Privacy</a></p>
         </div>

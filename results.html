@@ -13,6 +13,18 @@
     </script>
     <title>Your Results - SubCheck</title>
     <meta name="description" content="See your subscription spending breakdown and find ways to save.">
+    <link rel="canonical" href="https://subcheckapp.com/results.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SubCheck">
+    <meta property="og:title" content="Your Results - SubCheck">
+    <meta property="og:description" content="See your subscription spending breakdown and find ways to save.">
+    <meta property="og:url" content="https://subcheckapp.com/results.html">
+    <meta property="og:image" content="https://subcheckapp.com/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Your Results - SubCheck">
+    <meta name="twitter:description" content="See your subscription spending breakdown and find ways to save.">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -43,7 +55,12 @@
             <a href="index.html" class="text-xl font-bold text-brand">
                 <span class="inline-block mr-1">&#9745;</span> SubCheck
             </a>
-            <a href="calculator.html" class="text-sm text-gray-500 hover:text-gray-700 transition">&larr; Edit Subscriptions</a>
+            <div class="flex items-center gap-4 sm:gap-5">
+                <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Home</a>
+                <a href="calculator.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Calculator</a>
+                <a href="blog/index.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Blog</a>
+                <a href="privacy.html" class="text-sm font-medium text-gray-700 hover:text-brand transition">Privacy</a>
+            </div>
         </div>
     </nav>
 
@@ -78,6 +95,7 @@
                 <p class="text-gray-500">per year on subscriptions</p>
                 <p id="monthlyTotal" class="text-xl text-gray-400 mt-3">$0.00/month</p>
                 <p id="dailyTotal" class="text-sm text-gray-400 mt-1">That's $0.00/day</p>
+                <p id="summaryLine" class="text-base text-gray-700 font-medium mt-5"></p>
             </div>
 
             <!-- Category Breakdown -->
@@ -93,6 +111,14 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
                 <h2 class="text-xl font-bold mb-4">All Subscriptions</h2>
                 <div id="subList"></div>
+            </div>
+
+            <!-- What-if: cancel simulator -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
+                <h2 class="text-xl font-bold mb-2">What if you cancelled some?</h2>
+                <p class="text-sm text-gray-500 mb-5">Tick the ones you could live without and see the saving. This only changes the maths on this page, not your actual subscriptions.</p>
+                <div id="whatIfList"></div>
+                <p id="whatIfResult" class="text-base font-semibold text-savings mt-5 hidden"></p>
             </div>
 
             <!-- Recommendations -->
@@ -111,6 +137,14 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         Download CSV
                     </button>
+                    <button id="copySummaryBtn"
+                            class="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 border border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition">
+                        Copy Summary
+                    </button>
+                    <a id="emailSummaryBtn" href="#"
+                       class="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 border border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition text-center">
+                        Email Summary
+                    </a>
                     <button id="downloadPdfBtn"
                             class="flex-1 flex items-center justify-center gap-2 bg-brand text-white px-6 py-3.5 rounded-xl font-semibold hover:bg-brand-dark transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
@@ -134,7 +168,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-xs text-gray-400">
+    <footer class="py-8 text-center text-xs text-gray-600">
         <p>&copy; 2026 SubCheck. Your data stays in your browser.</p>
         <p class="mt-1"><a href="privacy.html" class="hover:text-gray-600">Privacy</a></p>
     </footer>
@@ -150,6 +184,7 @@
             return;
         }
         document.getElementById('resultsContent').classList.remove('hidden');
+        if (typeof gtag === 'function') gtag('event', 'results_viewed', { subscription_count: subscriptions.length });
 
         // ── Calculate totals ────────────────────────────────────
         let monthlyTotal = 0;
@@ -188,6 +223,17 @@
 
         // ── Doughnut chart ──────────────────────────────────────
         const sortedCats = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
+
+        // ── Personal summary line ────────────────────────────────
+        const topSubEntry = subscriptions.map(sub => {
+            let mc = sub.cost;
+            if (sub.frequency === 'quarterly')  mc = sub.cost / 3;
+            else if (sub.frequency === 'yearly') mc = sub.cost / 12;
+            return { name: sub.name, monthly: mc };
+        }).sort((a, b) => b.monthly - a.monthly)[0];
+        document.getElementById('summaryLine').textContent =
+            `Your biggest category is ${CATEGORY_LABELS[sortedCats[0][0]] || sortedCats[0][0]} at $${sortedCats[0][1].toFixed(2)} a month. ` +
+            `Your priciest service is ${topSubEntry.name} at $${topSubEntry.monthly.toFixed(2)} a month.`;
         const labels = sortedCats.map(([k]) => CATEGORY_LABELS[k] || k);
         const values = sortedCats.map(([, v]) => v);
 
@@ -251,9 +297,43 @@
                 </div>`;
         });
 
+        // ── What-if cancel simulator ─────────────────────────────
+        const whatIfEl = document.getElementById('whatIfList');
+        sorted.forEach(sub => {
+            const row = document.createElement('label');
+            row.className = 'flex items-center justify-between py-2.5 border-b border-gray-50 cursor-pointer';
+            row.innerHTML = `
+                <span class="flex items-center gap-3">
+                    <input type="checkbox" class="whatif-toggle w-4 h-4 accent-red-500" data-monthly="${sub.monthly.toFixed(2)}">
+                    <span class="font-medium text-sm">${sub.name}</span>
+                </span>
+                <span class="text-sm text-gray-600">$${sub.monthly.toFixed(2)}/mo</span>`;
+            whatIfEl.appendChild(row);
+        });
+        const whatIfResult = document.getElementById('whatIfResult');
+        whatIfEl.addEventListener('change', () => {
+            let saved = 0, count = 0;
+            whatIfEl.querySelectorAll('.whatif-toggle:checked').forEach(cb => { saved += parseFloat(cb.dataset.monthly); count++; });
+            if (count === 0) { whatIfResult.classList.add('hidden'); return; }
+            whatIfResult.textContent = `Cancelling ${count} service${count > 1 ? 's' : ''} saves $${saved.toFixed(2)}/month, or $${(saved * 12).toFixed(2)}/year.`;
+            whatIfResult.classList.remove('hidden');
+            if (typeof gtag === 'function') gtag('event', 'whatif_used', { cancelled_count: count });
+        });
+
         // ── Recommendations ─────────────────────────────────────
         const recsEl = document.getElementById('recommendations');
         let recsHTML = '';
+
+        // Top 3 by cost, from the user's own list
+        if (sorted.length >= 2) {
+            const top3 = sorted.slice(0, 3);
+            const top3Monthly = top3.reduce((s, x) => s + x.monthly, 0);
+            recsHTML += `
+                <div class="bg-gray-50 border border-gray-100 p-5 rounded-xl mb-4">
+                    <p class="font-semibold text-sm mb-1">Your top ${top3.length}: ${top3.map(x => x.name).join(', ')}</p>
+                    <p class="text-sm text-gray-600">Together they cost $${top3Monthly.toFixed(2)}/month, which is $${(top3Monthly * 12).toFixed(0)}/year. Cancelling or downgrading just these would cover most of your possible saving, without touching the rest.</p>
+                </div>`;
+        }
 
         // Tip 1: High spending warning
         if (yearlyTotal > 2000) {
@@ -275,13 +355,30 @@
                 </div>`;
         }
 
+        // Streaming is the biggest category: rotation plan
+        if (sortedCats[0][0] === 'streaming' && subscriptions.filter(s => s.category === 'streaming').length >= 2) {
+            recsHTML += `
+                <div class="bg-blue-50 border border-blue-100 p-5 rounded-xl mb-4">
+                    <p class="font-semibold text-sm mb-1">Streaming is your biggest category at $${(categoryTotals['streaming'] || 0).toFixed(2)}/mo</p>
+                    <p class="text-sm text-gray-600">Try a rotation: keep one streaming service active, pause or cancel the rest, and swap each month. You still watch everything, just not all at once.</p>
+                </div>`;
+        }
+
         // Tip 3: Switch to annual billing
         const monthlyBilled = subscriptions.filter(s => s.frequency === 'monthly' && s.cost > 10);
         if (monthlyBilled.length >= 2) {
             recsHTML += `
                 <div class="bg-green-50 border border-green-100 p-5 rounded-xl mb-4">
                     <p class="font-semibold text-sm mb-1">Switch to annual billing</p>
-                    <p class="text-sm text-gray-600">You have ${monthlyBilled.length} services billed monthly over $10. Annual plans typically save 15-20%. That could be $${(monthlyTotal * 12 * 0.15).toFixed(0)}+/year in savings.</p>
+                    <p class="text-sm text-gray-600">You have ${monthlyBilled.length} services billed monthly over $10. Annual plans typically save 15-20%. On those services alone, a typical 15% annual discount would be about $${(monthlyBilled.reduce((s, x) => s + x.cost, 0) * 12 * 0.15).toFixed(0)}/year.</p>
+                </div>`;
+        }
+
+        if (!recsHTML) {
+            recsHTML = `
+                <div class="bg-green-50 border border-green-100 p-5 rounded-xl mb-4">
+                    <p class="font-semibold text-sm mb-1">Your total is lean</p>
+                    <p class="text-sm text-gray-600">At $${yearlyTotal.toFixed(0)}/year, there is no obvious fat to trim. Keep doing an audit like this once or twice a year so it stays that way.</p>
                 </div>`;
         }
 
@@ -289,6 +386,7 @@
 
         // ── CSV Download ─────────────────────────────────────────
         document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+            if (typeof gtag === 'function') gtag('event', 'csv_downloaded', { subscription_count: subscriptions.length });
             const headers = ['Service Name', 'Cost', 'Billing Frequency', 'Category', 'Monthly Cost'];
             const rows = sorted.map(sub => [
                 sub.name,
@@ -318,6 +416,7 @@
 
         // ── Save as PDF (uses browser's built-in print-to-PDF) ──
         document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+            if (typeof gtag === 'function') gtag('event', 'pdf_printed', { subscription_count: subscriptions.length });
             window.print();
         });
 
@@ -328,6 +427,27 @@
                 window.location.href = 'calculator.html';
             }
         });
+
+        // ── Shareable summary (copy / email, nothing leaves the browser otherwise) ──
+        const summaryText =
+            `My SubCheck audit: ${subscriptions.length} subscriptions costing $${monthlyTotal.toFixed(2)}/month ($${yearlyTotal.toFixed(2)}/year). ` +
+            `Biggest category: ${CATEGORY_LABELS[sortedCats[0][0]] || sortedCats[0][0]} at $${sortedCats[0][1].toFixed(2)}/month. ` +
+            `Priciest service: ${topSubEntry.name} at $${topSubEntry.monthly.toFixed(2)}/month. Audited free at subcheckapp.com`;
+        const copyBtn = document.getElementById('copySummaryBtn');
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(summaryText);
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => { copyBtn.textContent = 'Copy Summary'; }, 2000);
+            } catch (e) {
+                window.prompt('Copy your summary:', summaryText);
+            }
+            if (typeof gtag === 'function') gtag('event', 'summary_copied', { subscription_count: subscriptions.length });
+        });
+        const emailBtn = document.getElementById('emailSummaryBtn');
+        const detailLines = sorted.map(s => `${s.name}: $${s.monthly.toFixed(2)}/month`).join('\n');
+        emailBtn.href = 'mailto:?subject=' + encodeURIComponent('My subscription audit (SubCheck)') +
+            '&body=' + encodeURIComponent(summaryText + '\n\n' + detailLines);
     })();
     </script>
 </body>
