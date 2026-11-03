@@ -26,6 +26,12 @@ const PRESETS = [
     { name: 'iCloud+',        cost: 2.99,   category: 'cloud' },
     { name: 'Xbox Game Pass', cost: 16.99,  category: 'gaming' },
     { name: 'Gym Membership', cost: 49.99,  category: 'fitness' },
+    { name: 'Newspaper',      cost: 14.99,  category: 'news' },
+    { name: 'Magazine',       cost: 9.99,   category: 'news' },
+    { name: 'Home Security',  cost: 24.99,  category: 'other' },
+    { name: 'Antivirus',      cost: 4.99,   category: 'software' },
+    { name: 'VPN',            cost: 4.99,   category: 'software' },
+    { name: 'Charity Donation', cost: 10.00, category: 'other' },
 ];
 
 // ── DOM references ──────────────────────────────────────────────
@@ -215,6 +221,19 @@ function syncPresetButtons() {
         btn.innerHTML = presetButtonLabel(preset, added);
     });
 }
+
+// ── Recall checklist: commonly forgotten charges add a blank row ──
+document.querySelectorAll('.recall-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        markCalculatorStarted();
+        createRow({ name: btn.dataset.name, cost: '', frequency: 'monthly', category: btn.dataset.category });
+        const rows = container.querySelectorAll('.subscription-row');
+        const last = rows[rows.length - 1];
+        const costInput = last ? last.querySelector('.cost') : null;
+        if (costInput) costInput.focus();
+        trackEvent('recall_used', { item: btn.dataset.name });
+    });
+});
 
 PRESETS.forEach(preset => {
     const btn = document.createElement('button');
