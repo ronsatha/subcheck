@@ -298,7 +298,7 @@ calculateBtn.addEventListener('click', () => {
     if (warn) warn.classList.add('hidden');
     trackEvent('calculator_completed', { subscription_count: subs.length });
     Storage.save(subs);
-    window.location.href = 'results.html';
+    window.location.href = '/results';
 });
 
 // ── Preset Buttons ──────────────────────────────────────────────
@@ -559,7 +559,7 @@ if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', () => calculateBtn.cl
 
 // ── Init: Load saved data or ask user ───────────────────────────
 (function init() {
-    // Homepage sample link: calculator.html?sample=1 loads the sample audit directly
+    // Homepage sample link: /calculator?sample=1 loads the sample audit directly
     if (new URLSearchParams(window.location.search).get('sample') === '1') {
         sampleData().forEach(sub => createRow(sub));
         syncPresetButtons();
