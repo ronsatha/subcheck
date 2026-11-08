@@ -35,11 +35,11 @@
     <meta property="og:title" content="Your Results - SubCheck">
     <meta property="og:description" content="See your subscription spending breakdown and find ways to save.">
     <meta property="og:url" content="https://subcheckapp.com/results">
-    <meta property="og:image" content="https://subcheckapp.com/og-image.svg">
+    <meta property="og:image" content="https://subcheckapp.com/og-image">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Your Results - SubCheck">
     <meta name="twitter:description" content="See your subscription spending breakdown and find ways to save.">
-    <meta name="twitter:image" content="https://subcheckapp.com/og-image.svg">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -68,12 +68,12 @@
     <!-- Navigation -->
     <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-            <a href="index.html" class="flex items-center gap-1.5 shrink-0 whitespace-nowrap text-lg sm:text-xl font-bold text-brand"><span class="text-xl leading-none">&#9745;</span> SubCheck</a>
+            <a href="/" class="flex items-center gap-1.5 shrink-0 whitespace-nowrap text-lg sm:text-xl font-bold text-brand"><span class="text-xl leading-none">&#9745;</span> SubCheck</a>
             <div class="order-3 w-full md:order-none md:w-auto flex items-center justify-around md:justify-end gap-4 md:gap-5 border-t border-gray-100 dark:border-gray-700 pt-2 md:border-0 md:pt-0">
-                <a href="index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Home</a>
-                <a href="calculator.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Calculator</a>
-                <a href="blog/index.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Blog</a>
-                <a href="privacy.html" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Privacy</a>
+                <a href="/" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Home</a>
+                <a href="/calculator" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Calculator</a>
+                <a href="/blog/" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Blog</a>
+                <a href="/privacy" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition">Privacy</a>
             </div>
         </div>
     </nav>
@@ -96,7 +96,7 @@
         <!-- No-data fallback (hidden when we have data) -->
         <div id="noData" class="hidden text-center py-16">
             <p class="text-gray-500 dark:text-gray-400 mb-4">No subscriptions found. Add some first!</p>
-            <a href="calculator.html" class="inline-block bg-brand text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-dark transition">Go to Calculator</a>
+            <a href="/calculator" class="inline-block bg-brand text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-dark transition">Go to Calculator</a>
         </div>
 
         <!-- Results content (hidden until data loads) -->
@@ -220,7 +220,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         });
         const data = await res.json();
         if (res.ok && data.ok) {
-            msg.innerHTML = 'You are on the list. <a href="/audit-checklist.html" class="text-brand font-semibold hover:underline" target="_blank" rel="noopener">Open your one-page audit checklist</a>';
+            msg.innerHTML = 'You are on the list. <a href="/audit-checklist" class="text-brand font-semibold hover:underline" target="_blank" rel="noopener">Open your one-page audit checklist</a>';
             if (typeof gtag === 'function') gtag('event', 'email_signup_submitted', {});
             document.getElementById('subscribeForm').reset();
         } else {
@@ -234,7 +234,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
 
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-3">
-                <a href="calculator.html"
+                <a href="/calculator"
                    class="flex-1 text-center bg-brand text-white px-6 py-3.5 rounded-xl font-semibold hover:bg-brand-dark transition">
                     Edit Subscriptions
                 </a>
@@ -249,7 +249,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
     <!-- Footer -->
     <footer class="py-8 text-center text-xs text-gray-600 dark:text-gray-300">
         <p>&copy; 2026 SubCheck. Your data stays in your browser.</p>
-        <p class="mt-1"><a href="privacy.html" class="hover:text-gray-600">Privacy</a></p>
+        <p class="mt-1"><a href="/privacy" class="hover:text-gray-600">Privacy</a></p>
     </footer>
 
     <script src="js/storage.js?v=20261103d"></script>
