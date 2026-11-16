@@ -587,8 +587,9 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
                     <span class="font-medium">${escText(sub.name)}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400">${fmtDate(next)} · $${sub.cost.toFixed(2)}</span>
                 </div>`).join('');
-            const in30 = datedSubs.filter(({ next }) => (next - new Date()) / 86400000 <= 30).reduce((sum, { sub }) => sum + sub.cost, 0);
-            document.getElementById('upcomingTotal').textContent = in30 > 0 ? `$${in30.toFixed(2)} due in the next 30 days across ${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}.` : `${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}, nothing due in the next 30 days.`;
+            const dueSoon = datedSubs.filter(({ next }) => (next - new Date()) / 86400000 <= 30);
+            const in30 = dueSoon.reduce((sum, { sub }) => sum + sub.cost, 0);
+            document.getElementById('upcomingTotal').textContent = in30 > 0 ? `$${in30.toFixed(2)} due in the next 30 days from ${dueSoon.length} of your ${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}.` : `${datedSubs.length} dated subscription${datedSubs.length === 1 ? '' : 's'}, nothing due in the next 30 days.`;
             document.getElementById('upcomingCard').classList.remove('hidden');
             document.getElementById('downloadIcsBtn').addEventListener('click', () => {
                 if (typeof gtag === 'function') gtag('event', 'calendar_downloaded', { subscription_count: datedSubs.length });
