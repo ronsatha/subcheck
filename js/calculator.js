@@ -90,14 +90,14 @@ function createRow(data = {}) {
                    aria-label="Service name" />
         </div>
         <div class="sm:col-span-2 relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">$</span>
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 text-sm pointer-events-none" aria-hidden="true">$</span>
             <input type="number"
                    placeholder="0.00"
                    step="0.01"
                    min="0"
                    value=""
                    class="cost w-full border border-gray-200 dark:border-gray-600 rounded-lg pl-7 pr-3 py-2.5 text-sm focus:border-brand focus:ring-1 focus:ring-brand"
-                   aria-label="Monthly cost" />
+                   aria-label="Cost per billing period, in dollars" />
         </div>
         <div class="sm:col-span-2">
             <select class="frequency w-full border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2.5 text-sm bg-white dark:bg-gray-800 focus:border-brand focus:ring-1 focus:ring-brand"
@@ -117,19 +117,19 @@ function createRow(data = {}) {
             </select>
         </div>
         <div class="sm:col-span-1 flex items-center justify-center">
-            <button class="delete-row w-8 h-8 rounded-full text-gray-300 hover:text-warning hover:bg-red-50 flex items-center justify-center text-lg transition"
+            <button type="button" class="delete-row w-8 h-8 rounded-full text-gray-500 dark:text-gray-400 hover:text-warning hover:bg-red-50 flex items-center justify-center text-lg transition"
                     aria-label="Delete row">&times;</button>
         </div>
         <div class="sm:col-span-12 flex flex-wrap items-center gap-x-4 gap-y-2">
             <span class="flex items-center gap-2">
-                <label class="text-xs text-gray-400 whitespace-nowrap">Next renewal <span class="text-gray-300">(optional)</span></label>
+                <label class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Next renewal (optional)</label>
                 <input type="date"
                        value=""
                        class="renewal border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
                        aria-label="Next renewal date (optional)" />
             </span>
             <span class="flex items-center gap-2">
-                <label class="text-xs text-gray-400 whitespace-nowrap">Whose bill?</label>
+                <label class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Whose bill?</label>
                 <select class="tag border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs bg-white dark:bg-gray-800 focus:border-brand focus:ring-1 focus:ring-brand" aria-label="Whose bill is this">
                     <option value="personal" ${(!data.tag || data.tag === 'personal') ? 'selected' : ''}>Personal</option>
                     <option value="business" ${data.tag === 'business' ? 'selected' : ''}>Business</option>
@@ -137,7 +137,7 @@ function createRow(data = {}) {
                 </select>
             </span>
             <span class="flex items-center gap-2">
-                <label class="text-xs text-gray-400 whitespace-nowrap">My share $</label>
+                <label class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">My share $</label>
                 <input type="number" step="0.01" min="0" placeholder="0.00"
                        value=""
                        class="share w-24 border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-xs focus:border-brand focus:ring-1 focus:ring-brand"
