@@ -595,9 +595,11 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
                 if (typeof gtag === 'function') gtag('event', 'calendar_downloaded', { subscription_count: datedSubs.length });
                 const stamp = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
                 const rrule = f => f === 'yearly' ? 'FREQ=YEARLY' : f === 'biennial' ? 'FREQ=YEARLY;INTERVAL=2' : f === 'semiannual' ? 'FREQ=MONTHLY;INTERVAL=6' : f === 'quarterly' ? 'FREQ=MONTHLY;INTERVAL=3' : f === 'weekly' ? 'FREQ=WEEKLY' : 'FREQ=MONTHLY';
+                const dtstamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
                 const events = datedSubs.map(({ sub, next }, i) => [
                     'BEGIN:VEVENT',
                     `UID:subcheck-${i}-${stamp(next)}@subcheckapp.com`,
+                    `DTSTAMP:${dtstamp}`,
                     `DTSTART;VALUE=DATE:${stamp(next)}`,
                     `RRULE:${rrule(sub.frequency)}`,
                     `SUMMARY:${icsEsc(sub.name)} renews ($${sub.cost.toFixed(2)})`,
