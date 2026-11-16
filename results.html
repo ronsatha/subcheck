@@ -475,7 +475,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
             row.className = 'flex items-center justify-between py-2.5 border-b border-gray-50 dark:border-gray-700 cursor-pointer';
             row.innerHTML = `
                 <span class="flex items-center gap-3">
-                    <input type="checkbox" class="whatif-toggle w-4 h-4 accent-red-500" data-monthly="${sub.monthly.toFixed(2)}">
+                    <input type="checkbox" class="whatif-toggle w-4 h-4 accent-red-500" data-monthly="${sub.monthly}">
                     <span class="font-medium text-sm">${escText(sub.name)}</span>
                 </span>
                 <span class="text-sm text-gray-600 dark:text-gray-300">$${sub.monthly.toFixed(2)}/mo</span>`;
