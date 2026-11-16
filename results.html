@@ -302,7 +302,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         // Color the total based on amount
         const totalEl = document.getElementById('yearlyTotal');
         if (yearlyTotal > 3000) totalEl.classList.replace('text-brand', 'text-warning');
-        else if (yearlyTotal > 1500) totalEl.classList.replace('text-brand', 'text-yellow-500');
+        else if (yearlyTotal > 1500) totalEl.classList.replace('text-brand', 'text-amber-600');
 
         // ── Doughnut chart ──────────────────────────────────────
         const sortedCats = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
