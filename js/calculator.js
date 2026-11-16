@@ -422,7 +422,7 @@ const categoryByLabel = {};
 CATEGORIES.forEach(c => { categoryByLabel[c.label.toLowerCase()] = c.value; });
 function normalizeFrequency(v) {
     const s = (v || '').toLowerCase();
-    if (/biennial|every 2|2[\s-]*years?|two years?/.test(s)) return 'biennial';
+    if (/biennial|(2|two)[\s-]*years?/.test(s)) return 'biennial';
     if (/semi|6[\s-]*months?|twice a year|biannual/.test(s)) return 'semiannual';
     if (/week/.test(s)) return 'weekly';
     if (/year|annual/.test(s)) return 'yearly';
