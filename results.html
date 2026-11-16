@@ -387,9 +387,9 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
 
         const TAG_LABELS = { personal: 'Personal', business: 'Business', shared: 'Shared' };
         const CANCEL_GUIDES = {
-            'netflix': 'blog/how-to-cancel-netflix.html',
-            'spotify': 'blog/how-to-cancel-spotify.html',
-            'hulu': 'blog/how-to-cancel-hulu.html'
+            'netflix': '/blog/how-to-cancel-netflix',
+            'spotify': '/blog/how-to-cancel-spotify',
+            'hulu': '/blog/how-to-cancel-hulu'
         };
         const shareMonthly = sub => {
             if (!sub.share) return 0;
@@ -662,7 +662,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         document.getElementById('startOverBtn').addEventListener('click', () => {
             if (confirm('This will clear all your data. Continue?')) {
                 Storage.clear();
-                window.location.href = 'calculator.html';
+                window.location.href = '/calculator';
             }
         });
 
