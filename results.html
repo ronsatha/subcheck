@@ -527,7 +527,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         }
 
         // Streaming is the biggest category: rotation plan
-        if (sortedCats[0][0] === 'streaming' && subscriptions.filter(s => s.category === 'streaming').length >= 2) {
+        if (sortedCats[0][0] === 'streaming' && streamingCount === 2) {
             recsHTML += `
                 <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/50 p-5 rounded-xl mb-4">
                     <p class="font-semibold text-sm mb-1">Streaming is your biggest category at $${(categoryTotals['streaming'] || 0).toFixed(2)}/mo</p>
