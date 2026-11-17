@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function(){try{var t=localStorage.getItem('subcheck_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      var nav=document.querySelector('nav'); if(!nav) return;
+      var wrap=nav.querySelector('.justify-between')||nav.querySelector('div'); if(!wrap) return;
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('aria-label','Toggle dark mode'); b.title='Toggle dark mode';
+      b.className='w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-600 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand transition text-base';
+      function paint(){b.textContent=document.documentElement.classList.contains('dark')?'\u2600':'\u263E';}
+      paint();
+      b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('subcheck_theme',d?'dark':'light');}catch(e){} paint();});
+      wrap.appendChild(b);
+    });})();
+    </script>
+    <!-- Impact Affiliate Verification -->
+    <meta name='impact-site-verification' value='004a0f18-575d-42d1-9e7e-d9d4ae796a76'>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB629TESJJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BB629TESJJ');
+    </script>
+    <title>Add Up the Subscriptions You Forgot You Pay For | SubCheck</title>
+    <meta name="description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
+    <link rel="canonical" href="https://subcheckapp.com/launch">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SubCheck">
+    <meta property="og:title" content="Add Up the Subscriptions You Forgot You Pay For | SubCheck">
+    <meta property="og:description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
+    <meta property="og:url" content="https://subcheckapp.com/launch">
+    <meta property="og:image" content="https://subcheckapp.com/og-image">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Add Up the Subscriptions You Forgot You Pay For | SubCheck">
+    <meta name="twitter:description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
+    <meta name="twitter:image" content="https://subcheckapp.com/og-image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: { DEFAULT: '#2563EB', light: '#3B82F6', dark: '#1D4ED8' },
+                        savings: '#10B981',
+                        warning: '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/styles.css?v=20261103">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100">
+
+    <!-- Navigation: deliberately minimal so the page has one job -->
+    <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+            <a href="/" class="flex items-center gap-1.5 shrink-0 whitespace-nowrap text-lg sm:text-xl font-bold text-brand"><span class="text-xl leading-none" aria-hidden="true">&#9745;</span> SubCheck</a>
+            <a href="/calculator" class="ml-auto text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-brand transition whitespace-nowrap">Skip to the calculator &rarr;</a>
+        </div>
+    </nav>
+
+    <main>
+    <!-- Hero with signup -->
+    <section class="bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-800 dark:to-transparent">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12 sm:pt-16 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            <div>
+                <span class="inline-block text-xs font-semibold tracking-wide uppercase bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-full shadow-sm">Free checklist &middot; One email a year &middot; No account</span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mt-6 mb-5">Add up the subscriptions you forgot you pay for.</h1>
+                <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-7">Get the one-page audit checklist that catches the charges a first pass misses. Print it, grab a card statement, and work top to bottom in about 15 minutes.</p>
+                <form class="js-signup flex flex-col sm:flex-row gap-3" novalidate>
+                    <label class="sr-only" for="signupEmail1">Email address</label>
+                    <input id="signupEmail1" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@example.com"
+                           class="flex-1 min-w-0 rounded-xl px-4 py-3.5 text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30" />
+                    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                    <button type="submit" class="bg-brand text-white px-6 py-3.5 rounded-xl text-base font-semibold hover:bg-brand-dark shadow-lg shadow-blue-600/20 transition whitespace-nowrap disabled:opacity-60">Send me the checklist</button>
+                </form>
+                <p class="js-signup-msg hidden text-sm font-medium mt-3 text-gray-800 dark:text-gray-100" role="status" aria-live="polite"></p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">You get the checklist straight away and one reminder email a year. No newsletter, and you can unsubscribe in one click.</p>
+            </div>
+
+            <!-- Checklist preview: the real section headings from /audit-checklist -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-gray-200/60 dark:shadow-none border border-gray-100 dark:border-gray-700 p-6 sm:p-8" aria-label="What is on the checklist">
+                <div class="flex items-center justify-between mb-5">
+                    <p class="font-bold"><span class="text-brand" aria-hidden="true">&#9745;</span> The One-Page Subscription Audit Checklist</p>
+                    <span class="text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-brand px-3 py-1 rounded-full whitespace-nowrap">Preview</span>
+                </div>
+                <ol class="space-y-4 text-sm">
+                    <li class="flex gap-3"><span class="w-7 h-7 shrink-0 rounded-full bg-brand text-white font-bold flex items-center justify-center">1</span><div><p class="font-semibold">Gather</p><p class="text-gray-600 dark:text-gray-300">Last month's bank and card statements, your phone's subscription screens, and any PayPal or Venmo automatic payments.</p></div></li>
+                    <li class="flex gap-3"><span class="w-7 h-7 shrink-0 rounded-full bg-brand text-white font-bold flex items-center justify-center">2</span><div><p class="font-semibold">Hunt the easy-to-miss charges</p><p class="text-gray-600 dark:text-gray-300">Ten places charges hide, from free trials that quietly converted to annual renewals.</p></div></li>
+                    <li class="flex gap-3"><span class="w-7 h-7 shrink-0 rounded-full bg-brand text-white font-bold flex items-center justify-center">3</span><div><p class="font-semibold">Write them down</p><p class="text-gray-600 dark:text-gray-300">A simple table: service, cost, how often, and keep, cancel, or rotate.</p></div></li>
+                    <li class="flex gap-3"><span class="w-7 h-7 shrink-0 rounded-full bg-brand text-white font-bold flex items-center justify-center">4</span><div><p class="font-semibold">Total and decide</p><p class="text-gray-600 dark:text-gray-300">Total it in the calculator, then mark each one keep, cancel, or rotate.</p></div></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- What you get -->
+    <section class="px-4 pb-16 sm:pb-20">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-10">What you get when you sign up</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <p class="text-xs font-semibold text-brand uppercase tracking-wider mb-2">Right now</p>
+                    <h3 class="font-bold mb-1.5">The one-page checklist</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Four steps on a single printable page. It opens the moment you sign up, with nothing to download or install.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <p class="text-xs font-semibold text-brand uppercase tracking-wider mb-2">Once a year</p>
+                    <h3 class="font-bold mb-1.5">A single reminder</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">One email a year nudging you to run the audit again, because prices creep and new charges pile up. That is the only email we send.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <p class="text-xs font-semibold text-brand uppercase tracking-wider mb-2">Whenever you like</p>
+                    <h3 class="font-bold mb-1.5">The free calculator</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Type in what the checklist finds and see what it all costs per month and per year. <a href="/calculator" class="text-brand font-semibold hover:underline">It works without signing up</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why it matters: only figures already cited on the home page -->
+    <section class="bg-slate-900 dark:bg-slate-800 text-white py-14 sm:py-16 px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-10">Most people are off by about half</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 text-center">
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold">$219</div>
+                    <div class="text-slate-300 mt-2 text-sm">What people actually spend per month. They guess $111.</div>
+                    <a href="https://www.cnbc.com/2022/09/06/consumers-underestimate-monthly-subscription-costs-by-at-least-100.html" target="_blank" rel="noopener" class="text-xs text-blue-200 hover:underline mt-2 inline-block">CNBC, on a 2022 C+R Research survey &rarr;</a>
+                </div>
+                <div>
+                    <div class="text-4xl sm:text-5xl font-extrabold">42%</div>
+                    <div class="text-slate-300 mt-2 text-sm">Have forgotten about a subscription they still pay for</div>
+                    <a href="https://www.crresearch.com/blog/subscription-service-statistics-and-costs/" target="_blank" rel="noopener" class="text-xs text-blue-200 hover:underline mt-2 inline-block">C+R Research &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="px-4 py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-3">Your email is the only thing we ever hold</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-300 text-center max-w-2xl mx-auto mb-10">Many subscription trackers start by asking for your bank login. SubCheck never does.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <h3 class="font-bold mb-1.5">No bank login, ever</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">You list your subscriptions by hand. Nothing connects to your accounts.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <h3 class="font-bold mb-1.5">Your list stays in your browser</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">What you type into the calculator is stored on your own device and is never sent to a server.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                    <h3 class="font-bold mb-1.5">Your email is kept apart</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">It is used for the checklist link and the yearly reminder, never sold or shared, and never connected to your list. <a href="/privacy" class="text-brand font-semibold hover:underline">Read the privacy page</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questions -->
+    <section class="px-4 pb-16 sm:pb-20">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-xl sm:text-2xl font-bold text-center mb-8">Before you sign up</h2>
+            <div class="space-y-3">
+                <details class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5">
+                    <summary class="font-semibold cursor-pointer">What emails will I get?</summary>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">One reminder email a year. There is no newsletter, and every reminder has a one-click unsubscribe.</p>
+                </details>
+                <details class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5">
+                    <summary class="font-semibold cursor-pointer">Do I have to sign up to use SubCheck?</summary>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">No. The calculator is free and works with no account and no email. Signing up only adds the checklist and the yearly reminder.</p>
+                </details>
+                <details class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5">
+                    <summary class="font-semibold cursor-pointer">Does signing up create an account?</summary>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">No. There is no password and nothing to log in to. Your email is stored only so the yearly reminder can reach you.</p>
+                </details>
+                <details class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5">
+                    <summary class="font-semibold cursor-pointer">Who is behind this?</summary>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">SubCheck is made by Ron Satha, an independent developer in Colorado. No company collects your subscription list here.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final signup -->
+    <section class="px-4 pb-16 sm:pb-24">
+        <div class="max-w-3xl mx-auto text-center bg-brand rounded-3xl px-6 py-12 sm:py-14">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Fifteen minutes with one page</h2>
+            <p class="text-blue-100 mb-8">Get the checklist now and a single reminder next year. The worst case is you find out you are doing fine.</p>
+            <div class="max-w-xl mx-auto text-left">
+                <form class="js-signup flex flex-col sm:flex-row gap-3" novalidate>
+                    <label class="sr-only" for="signupEmail2">Email address</label>
+                    <input id="signupEmail2" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@example.com"
+                           class="flex-1 min-w-0 rounded-xl px-4 py-3.5 text-base text-gray-900 bg-white border border-transparent focus:outline-none focus:ring-2 focus:ring-white" />
+                    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                    <button type="submit" class="bg-slate-900 text-white px-6 py-3.5 rounded-xl text-base font-semibold hover:bg-slate-800 transition whitespace-nowrap disabled:opacity-60">Send me the checklist</button>
+                </form>
+                <p class="js-signup-msg hidden text-sm font-medium mt-3 text-white" role="status" aria-live="polite"></p>
+            </div>
+            <p class="text-sm text-blue-100 mt-5">Prefer to skip the email? <a href="/calculator" class="font-semibold text-white underline hover:no-underline">Go straight to the calculator</a>.</p>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 dark:border-gray-700 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-600 dark:text-gray-300">
+            <p class="mb-3">
+                <a href="/" class="hover:text-brand mx-2">Home</a>
+                <a href="/calculator" class="hover:text-brand mx-2">Calculator</a>
+                <a href="/blog/" class="hover:text-brand mx-2">Blog</a>
+                <a href="/privacy" class="hover:text-brand mx-2">Privacy</a>
+            </p>
+            <p>&copy; 2026 SubCheck</p>
+        </div>
+    </footer>
+
+    <script>
+    // Email signup. Sends only the email address (plus the empty honeypot field) to the
+    // same /api/subscribe endpoint the results page uses. Nothing else leaves the browser.
+    (function () {
+        var done = '<span class="js-done">You are on the list. <a href="/audit-checklist" class="font-semibold underline hover:no-underline" target="_blank" rel="noopener">Open your one-page audit checklist</a>, then <a href="/calculator" class="font-semibold underline hover:no-underline">add up what you find</a>.</span>';
+        document.querySelectorAll('form.js-signup').forEach(function (form) {
+            var msg = form.nextElementSibling;
+            var input = form.querySelector('input[type="email"]');
+            var button = form.querySelector('button[type="submit"]');
+            function say(text, isHtml) {
+                msg.classList.remove('hidden');
+                if (isHtml) msg.innerHTML = text; else msg.textContent = text;
+            }
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                if (!input.checkValidity()) {
+                    say('Please enter a valid email address.');
+                    input.focus();
+                    return;
+                }
+                button.disabled = true;
+                say('Sending...');
+                try {
+                    var res = await fetch('/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: input.value, website: form.querySelector('input[name="website"]').value, source: 'launch-page' })
+                    });
+                    var data = await res.json();
+                    if (res.ok && data.ok) {
+                        say(done, true);
+                        if (typeof gtag === 'function') gtag('event', 'email_signup_submitted', {});
+                        form.reset();
+                    } else {
+                        say(data.error || 'Something went wrong. Please try again.');
+                    }
+                } catch (err) {
+                    say('Something went wrong. Please try again.');
+                }
+                button.disabled = false;
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>
