@@ -27,18 +27,18 @@
         gtag('js', new Date());
         gtag('config', 'G-BB629TESJJ');
     </script>
-    <title>Find the Subscriptions You Forgot You Pay For | SubCheck</title>
+    <title>Add Up the Subscriptions You Forgot You Pay For | SubCheck</title>
     <meta name="description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
     <link rel="canonical" href="https://subcheckapp.com/launch">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SubCheck">
-    <meta property="og:title" content="Find the Subscriptions You Forgot You Pay For | SubCheck">
+    <meta property="og:title" content="Add Up the Subscriptions You Forgot You Pay For | SubCheck">
     <meta property="og:description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
     <meta property="og:url" content="https://subcheckapp.com/launch">
     <meta property="og:image" content="https://subcheckapp.com/og-image">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Find the Subscriptions You Forgot You Pay For | SubCheck">
+    <meta name="twitter:title" content="Add Up the Subscriptions You Forgot You Pay For | SubCheck">
     <meta name="twitter:description" content="Get SubCheck's free one-page subscription audit checklist and one reminder email a year. No account, no bank login, and your subscription list never leaves your browser.">
     <meta name="twitter:image" content="https://subcheckapp.com/og-image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +78,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12 sm:pt-16 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div>
                 <span class="inline-block text-xs font-semibold tracking-wide uppercase bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-full shadow-sm">Free checklist &middot; One email a year &middot; No account</span>
-                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mt-6 mb-5">Find the subscriptions you forgot you pay for.</h1>
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mt-6 mb-5">Add up the subscriptions you forgot you pay for.</h1>
                 <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-7">Get the one-page audit checklist that catches the charges a first pass misses. Print it, grab a card statement, and work top to bottom in about 15 minutes.</p>
                 <form class="js-signup flex flex-col sm:flex-row gap-3" novalidate>
                     <label class="sr-only" for="signupEmail1">Email address</label>
@@ -256,7 +256,7 @@
                     var res = await fetch('/api/subscribe', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: input.value, website: form.querySelector('input[name="website"]').value })
+                        body: JSON.stringify({ email: input.value, website: form.querySelector('input[name="website"]').value, source: 'launch-page' })
                     });
                     var data = await res.json();
                     if (res.ok && data.ok) {
